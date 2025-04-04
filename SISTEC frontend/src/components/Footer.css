@@ -5,7 +5,7 @@ footer {
   padding: 1.5rem 1rem;
   font-size: 0.85rem;
   width: 100%;
-  margin-top: auto; 
+  box-sizing: border-box;
 }
 
 footer p {
@@ -18,10 +18,3 @@ footer p:first-child {
   font-weight: bold;
   font-size: 0.9rem;
 }
-
-footer i {
-  margin: 0 6px;
-  font-size: 1rem;
-}
-
-  
