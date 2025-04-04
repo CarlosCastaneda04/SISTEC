@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // 👈 importante
 import "./Login.css";
 
 function Login() {
@@ -6,6 +7,8 @@ function Login() {
     correo: "",
     password: "",
   });
+
+  const navigate = useNavigate(); // 👈 hook para redirigir
 
   const handleChange = (e) => {
     setFormData({
@@ -31,11 +34,22 @@ function Login() {
       if (res.ok) {
         alert("Inicio de sesión exitoso");
 
-        // Guardar el usuario en localStorage
         localStorage.setItem("usuario", JSON.stringify(data.usuario));
 
-        // Aquí podrías redirigir al dashboard, por ejemplo
-        // navigate('/dashboard');
+        // 🔁 Redirección automática según el rol
+        switch (data.usuario.rol_id) {
+          case 1:
+            navigate("/solicitudes");
+            break;
+          case 2:
+            navigate("/tareas");
+            break;
+          case 3:
+            navigate("/dashboard");
+            break;
+          default:
+            navigate("/"); // fallback
+        }
       } else {
         alert(data.mensaje || "Correo o contraseña incorrectos");
       }
