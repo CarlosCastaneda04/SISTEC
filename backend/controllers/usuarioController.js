@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const db = require("../models");
 const Usuario = db.Usuario;
+const { enviarCorreoRegistro } = require("../utils/mailer");
 
 // Registro de usuario
 exports.register = async (req, res) => {
@@ -24,7 +25,8 @@ exports.register = async (req, res) => {
       password: hashedPassword,
       id_area,
     });
-
+    // 👇 Enviar correo de bienvenida al nuevo usuario
+    await enviarCorreoRegistro(nuevoUsuario);
     res
       .status(201)
       .json({ mensaje: "Usuario registrado con éxito", usuario: nuevoUsuario });
