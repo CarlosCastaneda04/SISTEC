@@ -1,0 +1,17 @@
+footer {
+    margin-top: 2rem;
+    background-color: #000;
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #fff;
+  }
+  
+  footer p {
+    margin: 0.5rem 0;
+  }
+  
+  footer i {
+    margin: 0 6px;
+  }
+  
