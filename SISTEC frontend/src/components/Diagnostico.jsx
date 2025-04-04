@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom'; // ✅ Importación añadida
 import './Diagnostico.css';
 
 function Diagnostico() {
+  const navigate = useNavigate(); // ✅ Hook añadido
+
   const solicitudes = [
     {
       codigo: 'DF-2025-001',
@@ -43,7 +46,7 @@ function Diagnostico() {
       </div>
 
       <div className="boton-agregar">
-        <button onClick={() => alert('Aquí iría la lógica para crear una solicitud')}>
+        <button onClick={() => navigate('/agregar-solicitud')}>
           + Agregar Solicitud
         </button>
       </div>
