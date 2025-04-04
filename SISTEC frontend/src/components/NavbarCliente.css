@@ -1,0 +1,37 @@
+.navbar-cliente {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2rem;
+    background-color: white;
+    border-bottom: 1px solid #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .logo-navbar {
+    height: 40px;
+  }
+  
+  .navbar-cliente ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
+  
+  .navbar-cliente li {
+    font-weight: 500;
+  }
+  
+  .navbar-cliente a {
+    text-decoration: none;
+    color: #000;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-cliente a:hover {
+    color: #0047cc;
+  }
+  
