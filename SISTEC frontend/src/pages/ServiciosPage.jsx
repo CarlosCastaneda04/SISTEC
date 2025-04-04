@@ -1,16 +1,14 @@
 import NavbarCliente from '../components/NavbarCliente';
-import Footer from '../components/Footer';
+import ServiciosTec from '../components/ServiciosTecnicos';
 
 function ServiciosPage() {
   return (
     <div className="page-container">
-      <NavbarCliente />
 
       <main className="content-wrap">
-        {/* Aquí va el contenido de Servicios Técnicos */}
+        <ServiciosTec/>
       </main>
 
-      <Footer />
     </div>
   );
 }

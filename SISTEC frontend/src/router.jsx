@@ -3,6 +3,8 @@ import App from './App';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import About from './components/About';
+import ServiciosTecnicos from './pages/ServiciosPage'; // asegúrate de que esta ruta coincida
+
 
 
 const router = createBrowserRouter([
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: '/registro',
         element: <RegisterPage />
+      },
+      {
+        path: '/servicios-tecnicos',
+        element: <ServiciosTecnicos />
       }
     ]
   }
