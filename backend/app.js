@@ -6,7 +6,7 @@ const connectToDatabase = require("./config/connector");
 // 🛡️ Permitir conexiones desde frontend externo
 app.use(
   cors({
-    origin: "*", // cambia esto si tu frontend está en otro dominio http://localhost:5173
+    origin: "http://localhost:5173", // cambia esto si tu frontend está en otro dominio http://localhost:5173
     credentials: true,
   })
 );
