@@ -39,7 +39,6 @@ function AgregarSolicitud() {
           id_usuario: solicitud.id_usuario,
           descripcion: solicitud.descripcion,
           id_area: solicitud.id_area,
-          // otros campos como detalles, ubicación, comentario si están en el modelo
         }),
       });
 
