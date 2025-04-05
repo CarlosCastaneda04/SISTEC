@@ -28,6 +28,7 @@ function Navbar() {
           <>
             <span className="nav-user">👤 {usuario.nombre}</span>
             <Link to="/solicitudes">Mis Solicitudes</Link>
+            <Link to="/servicios-tecnicos">Servicios</Link>
             <button onClick={logout}>Cerrar Sesión</button>
           </>
         );
