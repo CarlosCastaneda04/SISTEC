@@ -7,5 +7,9 @@ router.post("/", controlador.asignarTecnico);
 
 // Obtener técnicos por área de la solicitud
 router.get("/tecnicos/:id_solicitud", controlador.tecnicosPorAreaSolicitud);
+router.get(
+  "/tecnico/:id_tecnico",
+  controlador.obtenerSolicitudesAsignadasATecnico
+);
 
 module.exports = router;

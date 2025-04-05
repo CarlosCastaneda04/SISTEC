@@ -6,4 +6,9 @@ const controlador = require("../controllers/solicitudController");
 router.post("/", controlador.crearSolicitud);
 router.get("/cliente/:id_cliente", controlador.obtenerSolicitudesCliente);
 
+router.get(
+  "/tecnico/:id_tecnico",
+  controlador.obtenerSolicitudesAsignadasATecnico
+);
+
 module.exports = router;

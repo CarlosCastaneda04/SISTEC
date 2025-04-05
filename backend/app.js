@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const connectToDatabase = require("./config/connector");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger");
 
 // Permitir conexiones desde frontend externo
 app.use(
@@ -10,9 +12,9 @@ app.use(
     credentials: true,
   })
 );
-
 // Middlewares
 app.use(express.json());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Rutas
 app.use("/usuarios", require("./routes/usuarioRoutes"));

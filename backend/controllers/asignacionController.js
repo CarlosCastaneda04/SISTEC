@@ -68,3 +68,38 @@ exports.tecnicosPorAreaSolicitud = async (req, res) => {
     res.status(500).json({ mensaje: "Error al buscar técnicos" });
   }
 };
+
+exports.obtenerSolicitudesAsignadasATecnico = async (req, res) => {
+  const { id_tecnico } = req.params;
+
+  try {
+    const asignaciones = await Asignacion.findAll({
+      where: { id_tecnico },
+    });
+
+    if (!asignaciones || asignaciones.length === 0) {
+      return res.status(200).json([]);
+    }
+
+    const solicitudesIds = asignaciones.map((a) => a.id_solicitud);
+
+    const solicitudes = await Solicitud.findAll({
+      where: { id: solicitudesIds },
+    });
+
+    const tecnico = await Usuario.findByPk(id_tecnico);
+
+    const resultado = solicitudes.map((s) => ({
+      codigo: `SL-${String(s.id).padStart(3, "0")}`,
+      solicitud: s.descripcion,
+      nombre: `${tecnico?.nombre || "Técnico"} ${tecnico?.apellido || ""}`,
+      estado: s.estado,
+      fecha: new Date(s.fecha_creacion).toLocaleDateString(),
+    }));
+
+    res.json(resultado);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al obtener solicitudes asignadas" });
+  }
+};

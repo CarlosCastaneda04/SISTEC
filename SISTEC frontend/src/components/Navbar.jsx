@@ -36,7 +36,7 @@ function Navbar() {
         return (
           <>
             <span className="nav-user">🔧 {usuario.nombre}</span>
-            <Link to="/tareas">Tareas asignadas</Link>
+            <Link to="/empleado-tecnico">Tareas asignadas</Link>
             <button onClick={logout}>Cerrar Sesión</button>
           </>
         );

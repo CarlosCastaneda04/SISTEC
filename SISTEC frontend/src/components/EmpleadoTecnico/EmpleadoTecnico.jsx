@@ -1,60 +1,51 @@
-import {
-  Button,
-  Card,
-  CardBody,
-  Col,
-  Container,
-  Row,
-  Table,
-} from "reactstrap";
-import "./EmpleadoTecnico.css"; 
+import { useEffect, useState } from "react";
+import { Button, Card, CardBody, Col, Container, Row, Table } from "reactstrap";
+import "./EmpleadoTecnico.css";
 
 const EmpleadoTecnico = () => {
+  const [solicitudes, setSolicitudes] = useState([]);
+  const usuario = JSON.parse(localStorage.getItem("usuario")); // técnico logueado
+
+  useEffect(() => {
+    if (!usuario || usuario.rol_id !== 2) return;
+
+    const fetchSolicitudesAsignadas = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:3000/solicitudes/tecnico/${usuario.id}`
+        );
+        const data = await res.json();
+
+        if (res.ok) {
+          setSolicitudes(data);
+        } else {
+          alert(data.mensaje || "Error al obtener solicitudes asignadas.");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Error al conectar con el servidor.");
+      }
+    };
+
+    fetchSolicitudesAsignadas();
+  }, []);
+
   const categorias = [
-    "Nombre de categoria de solicitud",
-    "Nombre de categoria de solicitud",
-    "Nombre de categoria de solicitud",
-    "Nombre de categoria de solicitud",
+    "Nombre de categoría 1",
+    "Nombre de categoría 2",
+    "Nombre de categoría 3",
+    "Nombre de categoría 4",
   ];
 
-  const data = [
-    {
-      codigo: "DF-2025-001",
-      solicitud: "Problema de conectividad de red",
-      nombre: "Juan Perez",
-      estado: "En curso",
-      fecha: "31/10/2025",
-    },
-    {
-      codigo: "DF-2025-001",
-      solicitud: "Problema de conectividad de red",
-      nombre: "Juan Perez",
-      estado: "En curso",
-      fecha: "31/10/2025",
-    },
-    {
-      codigo: "DF-2025-001",
-      solicitud: "Problema de conectividad de red",
-      nombre: "Juan Perez",
-      estado: "En curso",
-      fecha: "31/10/2025",
-    },
-    {
-      codigo: "DF-2025-001",
-      solicitud: "Problema de conectividad de red",
-      nombre: "Juan Perez",
-      estado: "En curso",
-      fecha: "31/10/2025",
-    },
-  ];
   return (
     <>
       <Container>
         <Row>
           <Col>
-            <h1>Categorias de las solicitudes</h1>
+            <h1>Categorías de las solicitudes</h1>
           </Col>
         </Row>
+
         <h3 className="mb-4">Categorías de las solicitudes</h3>
         <Row>
           {categorias.slice(0, 2).map((nombre, index) => (
@@ -83,11 +74,12 @@ const EmpleadoTecnico = () => {
             </Col>
           ))}
         </Row>
+
         <Row>
           <div>
             <h5 className="fw-bold mb-3">
-              <span style={{ fontSize: "1.3rem" }}>4</span> solicitudes
-              asignadas recientemente
+              <span style={{ fontSize: "1.3rem" }}>{solicitudes.length}</span>{" "}
+              solicitudes asignadas recientemente
             </h5>
             <Table bordered hover responsive>
               <thead style={{ backgroundColor: "#e9e9e9" }}>
@@ -100,15 +92,21 @@ const EmpleadoTecnico = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, i) => (
-                  <tr key={i}>
-                    <td>{item.codigo}</td>
-                    <td>{item.solicitud}</td>
-                    <td>{item.nombre}</td>
-                    <td>{item.estado}</td>
-                    <td>{item.fecha}</td>
+                {solicitudes.length === 0 ? (
+                  <tr>
+                    <td colSpan="5">No tienes solicitudes asignadas aún</td>
                   </tr>
-                ))}
+                ) : (
+                  solicitudes.map((item, i) => (
+                    <tr key={i}>
+                      <td>{item.codigo}</td>
+                      <td>{item.solicitud}</td>
+                      <td>{item.nombre}</td>
+                      <td>{item.estado}</td>
+                      <td>{item.fecha}</td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </Table>
           </div>
