@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import About from "./components/About";
 import ServiciosTecnicos from "./pages/ServiciosPage"; // asegúrate de que esta ruta coincida
 import EmpleadoTecnico from "./components/EmpleadoTecnico/EmpleadoTecnico";
+import CategoriaSeleccionada from "./components/CategoriaSeleccionada/CategoriaSeleccionada";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/empleado-tecnico",
         element: <EmpleadoTecnico />,
+      },
+      {
+        path: "/categoria-seleccionada",
+        element: <CategoriaSeleccionada />,
       },
     ],
   },
