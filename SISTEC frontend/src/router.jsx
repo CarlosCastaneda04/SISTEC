@@ -6,6 +6,8 @@ import About from './components/About';
 import ServiciosTecnicos from './pages/ServiciosPage'; 
 import Diagnostico from './components/Diagnostico';
 import AgregarSolicitudPage from './pages/AgregarSolicitudPage';
+import DashboardAdminPage from './pages/DashboardAdminPage'; // importa tu página nueva
+
 
 
 
@@ -38,7 +40,11 @@ const router = createBrowserRouter([
       {
         path: '/agregar-solicitud',
         element: <AgregarSolicitudPage />
-      }      
+      },
+      {
+        path: '/dashboard-admin',
+      element: <DashboardAdminPage /> 
+      }
     ]
   }
 ]);
