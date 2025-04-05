@@ -1,0 +1,79 @@
+.solicitud-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fff;
+    color: #000;
+  }
+  
+  .solicitud-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+  }
+  
+  .solicitud-container section {
+    margin-bottom: 2rem;
+  }
+  
+  .solicitud-container h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+  
+  .solicitud-container input,
+  .solicitud-container select,
+  .solicitud-container textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+    border-radius: 25px;
+    border: none;
+    background-color: #f2f2f2;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+  }
+  
+  .solicitud-container textarea {
+    border-radius: 10px;
+    resize: none;
+    height: 80px;
+  }
+  
+  .botones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .botones button {
+    padding: 0.6rem 1.4rem;
+    border-radius: 18px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background 0.2s ease;
+  }
+  
+  .botones .cancelar {
+    background-color: #f0f0f0;
+  }
+  
+  .botones .cancelar:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .botones .enviar {
+    background-color: #0066ff;
+    color: #fff;
+  }
+  
+  .botones .enviar:hover {
+    background-color: #004fcc;
+  }
+  

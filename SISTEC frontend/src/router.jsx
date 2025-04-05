@@ -1,43 +1,46 @@
-import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
-import RegisterPage from "./pages/RegisterPage";
-import LoginPage from "./pages/LoginPage";
-import About from "./components/About";
-import ServiciosTecnicos from "./pages/ServiciosPage"; // asegúrate de que esta ruta coincida
-import EmpleadoTecnico from "./components/EmpleadoTecnico/EmpleadoTecnico";
-import CategoriaSeleccionada from "./components/CategoriaSeleccionada/CategoriaSeleccionada";
+import { createBrowserRouter } from 'react-router-dom';
+import App from './App'; 
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import About from './components/About';
+import ServiciosTecnicos from './pages/ServiciosPage'; 
+import Diagnostico from './components/Diagnostico';
+import AgregarSolicitudPage from './pages/AgregarSolicitudPage';
+
+
+
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <App />,
+    path: '/',
+    element: <App />, 
     children: [
       {
-        path: "/login",
-        element: <LoginPage />,
+        path: '/login',
+        element: <LoginPage />
       },
       {
-        path: "/acerca",
-        element: <About />,
+        path: '/acerca',
+        element: <About />
       },
       {
-        path: "/registro",
-        element: <RegisterPage />,
+        path: '/registro',
+        element: <RegisterPage />
       },
       {
-        path: "/servicios-tecnicos",
-        element: <ServiciosTecnicos />,
+        path: '/servicios-tecnicos',
+        element: <ServiciosTecnicos />
       },
       {
-        path: "/empleado-tecnico",
-        element: <EmpleadoTecnico />,
+        path: '/diagnostico',
+        element: <Diagnostico />
       },
       {
-        path: "/categoria-seleccionada",
-        element: <CategoriaSeleccionada />,
-      },
-    ],
-  },
+        path: '/agregar-solicitud',
+        element: <AgregarSolicitudPage />
+      }      
+    ]
+  }
 ]);
 
 export default router;
