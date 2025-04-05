@@ -5,8 +5,10 @@ import LoginPage from "./pages/LoginPage";
 import About from "./components/About";
 import ServiciosTecnicos from "./pages/ServiciosPage"; // asegúrate de que esta ruta coincida
 import EmpleadoTecnico from "./components/EmpleadoTecnico/EmpleadoTecnico";
-import CategoriaSeleccionada from "./components/CategoriaSeleccionada/CategoriaSeleccionada";
-
+import CategoriaSeleccionada from "./components/CategoriaSeleccionada/CategoriaSeleccionada"; 
+import TecnicosDisponibles from "./components/TecnicosDisponibles/tecnicosDisponibles";
+import AsignarServicio from "./components/Tecnicos/AsignarServicio"; // asegúrate de que esta ruta coincida 
+import AsignacionExitosa from "./components/Tecnicos/AsignacionExitosa"; // asegúrate de que esta ruta coincida
 const router = createBrowserRouter([
   {
     path: "/",
@@ -35,6 +37,18 @@ const router = createBrowserRouter([
       {
         path: "/categoria-seleccionada",
         element: <CategoriaSeleccionada />,
+      },
+      {
+        path: "/tecnicos-disponibles",
+        element: <TecnicosDisponibles />,
+      },
+      {
+        path: "/asignar-tecnicos",
+        element: < AsignarServicio/>,
+      },
+      {
+        path: "/asignarcion-confirmada",
+        element: < AsignacionExitosa/>,
       },
     ],
   },
