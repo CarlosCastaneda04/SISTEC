@@ -39,10 +39,10 @@ function Login() {
         // 🔁 Redirección automática según el rol
         switch (data.usuario.rol_id) {
           case 1:
-            navigate("/solicitudes");
+            navigate("/servicios-tecnicos");
             break;
           case 2:
-            navigate("/tareas");
+            navigate("/empleado-tecnico");
             break;
           case 3:
             navigate("/dashboard");
