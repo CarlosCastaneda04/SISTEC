@@ -1,0 +1,104 @@
+.vistaComp__container {
+  background-color: #f1f1f1;
+}
+
+.vistaComp__contenido {
+  background-color: #ffffff;
+}
+
+.vistaComp__titulo {
+  color: #333;
+}
+
+.vistaComp__categoriasGrid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-bottom: 50px;
+}
+
+.vistaComp__col {
+  padding: 0;
+}
+
+.vistaComp__card {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vistaComp__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.vistaComp__icono {
+  color: #155f82;
+}
+
+.vistaComp__catTitulo {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+.vistaComp__catDesc {
+  font-size: 13px;
+  color: #666;
+  min-height: 40px;
+  margin-bottom: 12px;
+}
+
+.vistaComp__btn {
+  background-color: #155f82;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  font-size: 13px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.vistaComp__btn:hover {
+  background-color: #104b66;
+}
+
+.vistaComp__subtitulo {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 40px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.vistaComp__tablaContainer {
+  overflow-x: auto;
+}
+
+.vistaComp__tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  font-size: 14px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.vistaComp__tabla th,
+.vistaComp__tabla td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.vistaComp__tabla thead {
+  background-color: #e5e5e5;
+  font-weight: bold;
+  color: #333;
+}
+
+.vistaComp__tabla tbody tr:hover {
+  background-color: #f1f1f1;
+}

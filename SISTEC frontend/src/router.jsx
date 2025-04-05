@@ -6,9 +6,8 @@ import About from './components/About';
 import ServiciosTecnicos from './pages/ServiciosPage'; 
 import Diagnostico from './components/Diagnostico';
 import AgregarSolicitudPage from './pages/AgregarSolicitudPage';
-
-
-
+import VistaComponente from './components/VistaComponente/VistaComponente'; 
+import RegistrarTecnico from './components/RegistrarTecnico/RegistrarTecnico';
 
 const router = createBrowserRouter([
   {
@@ -38,7 +37,15 @@ const router = createBrowserRouter([
       {
         path: '/agregar-solicitud',
         element: <AgregarSolicitudPage />
-      }      
+      },
+      {
+        path: '/vista-componente',
+        element: <VistaComponente />
+      },
+      {
+        path: '/registrar-tecnico',
+        element: <RegistrarTecnico />
+      }          
     ]
   }
 ]);

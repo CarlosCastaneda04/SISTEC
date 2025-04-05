@@ -1,0 +1,62 @@
+.tecnico__container {
+    max-width: 650px;
+    margin: auto;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .tecnico__titulo {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .tecnico__subtitulo {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  
+  .tecnico__form-box {
+    background-color: #e6e6e6;
+    padding: 30px;
+    border-radius: 30px;
+  }
+  
+  .tecnico__form-box .form-control {
+    border-radius: 30px;
+    background-color: #f3f3f3;
+    border: none;
+    font-size: 14px;
+  }
+  
+  .tecnico__form-box label {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  
+  .tecnico__botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+  }
+  
+  .tecnico__cancelar {
+    background-color: #e0e0e0;
+    color: #000;
+    border-radius: 30px;
+    padding: 8px 20px;
+    border: none;
+  }
+  
+  .tecnico__guardar {
+    background-color: #000;
+    color: #fff;
+    border-radius: 30px;
+    padding: 8px 20px;
+    border: none;
+  }
+  
