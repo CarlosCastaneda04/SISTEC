@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage';
 import About from './components/About';
 import ServiciosTecnicos from './pages/ServiciosPage'; 
 import Diagnostico from './components/Diagnostico';
+import AgregarSolicitudPage from './pages/AgregarSolicitudPage';
 
 
 
@@ -34,7 +35,10 @@ const router = createBrowserRouter([
         path: '/diagnostico',
         element: <Diagnostico />
       },
-      
+      {
+        path: '/agregar-solicitud',
+        element: <AgregarSolicitudPage />
+      }      
     ]
   }
 ]);
