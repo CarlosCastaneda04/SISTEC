@@ -1,28 +1,26 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Diagnostico.css";
+import "./Diagnostico.css"; // reutiliza estilos
 
-function Diagnostico() {
+function MisSolicitudes() {
   const navigate = useNavigate();
-  const [diagnosticos, setDiagnosticos] = useState([]);
-
-  // Obtener solo una vez el usuario logueado
+  const [solicitudes, setSolicitudes] = useState([]);
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   useEffect(() => {
-    if (!usuario || usuario.rol_id !== 1) return; // Solo clientes
+    if (!usuario || usuario.rol_id !== 1) return;
 
-    const fetchDiagnosticos = async () => {
+    const fetchSolicitudes = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/diagnostico/cliente/${usuario.id}`
+          `http://localhost:3000/solicitudes/cliente/${usuario.id}`
         );
         const data = await res.json();
 
         if (res.ok) {
-          setDiagnosticos(data);
+          setSolicitudes(data);
         } else {
-          alert(data.mensaje || "Error al cargar diagnósticos");
+          alert(data.mensaje || "Error al cargar solicitudes");
         }
       } catch (error) {
         console.error(error);
@@ -30,15 +28,15 @@ function Diagnostico() {
       }
     };
 
-    fetchDiagnosticos();
-  }, []); // ✅ Solo se ejecuta una vez al montar
+    fetchSolicitudes();
+  }, []);
 
   return (
     <div className="diagnostico-container">
-      <h2>Diagnóstico de fallas</h2>
+      <h2>Mis Solicitudes</h2>
 
       <div className="tabla-wrapper">
-        <div className="tabla-titulo">Mis Solicitudes Diagnosticadas</div>
+        <div className="tabla-titulo">Todas las Solicitudes</div>
         <table className="tabla-solicitudes">
           <thead>
             <tr>
@@ -50,12 +48,12 @@ function Diagnostico() {
             </tr>
           </thead>
           <tbody>
-            {diagnosticos.length === 0 ? (
+            {solicitudes.length === 0 ? (
               <tr>
-                <td colSpan="5">No tienes solicitudes diagnosticadas aún</td>
+                <td colSpan="5">No tienes solicitudes registradas aún</td>
               </tr>
             ) : (
-              diagnosticos.map((s, i) => (
+              solicitudes.map((s, i) => (
                 <tr key={i}>
                   <td>{s.codigo}</td>
                   <td>{s.solicitud}</td>
@@ -78,4 +76,4 @@ function Diagnostico() {
   );
 }
 
-export default Diagnostico;
+export default MisSolicitudes;

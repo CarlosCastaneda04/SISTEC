@@ -87,7 +87,6 @@ function AgregarSolicitud() {
           <option value="1">Informática</option>
           <option value="2">Mantenimiento</option>
           <option value="3">Recursos Humanos</option>
-          {/* Puedes cargar las áreas dinámicamente si lo deseas */}
         </select>
         <input
           type="text"

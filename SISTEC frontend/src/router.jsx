@@ -8,6 +8,7 @@ import Diagnostico from "./components/Diagnostico";
 import AgregarSolicitudPage from "./pages/AgregarSolicitudPage";
 import EmpleadoTecnico from "./components/EmpleadoTecnico/EmpleadoTecnico";
 import CategoriaSeleccionada from "./components/CategoriaSeleccionada/CategoriaSeleccionada";
+import MisSolicitudes from "./components/MisSolicitudes";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/categoria-seleccionada",
         element: <CategoriaSeleccionada />,
+      },
+      {
+        path: "/misSolicitudes",
+        element: <MisSolicitudes />,
       },
     ],
   },

@@ -27,7 +27,7 @@ function Navbar() {
         return (
           <>
             <span className="nav-user">👤 {usuario.nombre}</span>
-            <Link to="/solicitudes">Mis Solicitudes</Link>
+            <Link to="/misSolicitudes">Mis Solicitudes</Link>
             <Link to="/servicios-tecnicos">Servicios</Link>
             <button onClick={logout}>Cerrar Sesión</button>
           </>
