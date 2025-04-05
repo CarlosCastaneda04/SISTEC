@@ -1,54 +1,39 @@
 import React from 'react';
-import { Container, Row, Col, Card, CardBody, CardTitle, CardText, Button } from 'reactstrap';
-import { Bar } from 'react-chartjs-2';  // Importa el componente Bar para la gráfica
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-
-// Registra los componentes de Chart.js
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
+import { Container, Row, Col, Card, CardBody, CardTitle, Button } from 'reactstrap';
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import './DashboardAdmin.css';
 
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
+
+const data = {
+  labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+  datasets: [
+    {
+      label: 'Solicitudes por día',
+      data: [5, 10, 8, 15, 6, 3, 4],
+      backgroundColor: 'rgba(54, 162, 235, 0.6)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 1,
+    },
+  ],
+};
+
+const options = {
+  responsive: true,
+  scales: {
+    x: {
+      beginAtZero: true,
+    },
+  },
+};
+
 function DashboardAdmin() {
-  // Datos de ejemplo para la gráfica de barras
-  const data = {
-    labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
-    datasets: [
-      {
-        label: 'Solicitudes por día',
-        data: [5, 10, 8, 15, 7, 4, 6],  // Datos de ejemplo
-        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      tooltip: {
-        callbacks: {
-          label: function (tooltipItem) {
-            return `Solicitudes: ${tooltipItem.raw}`;
-          },
-        },
-      },
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  };
-
   return (
     <Container className="dashboard-admin mt-5">
       <h2 className="text-center mb-4">Resumen de Solicitudes</h2>
 
-      {/* GRÁFICA (ahora con datos de ejemplo) */}
+      {/* GRÁFICA (con Chart.js) */}
       <div className="chart-placeholder mb-5">
         <Bar data={data} options={options} />
       </div>
@@ -61,7 +46,7 @@ function DashboardAdmin() {
             <Card className="shadow-sm service-card mb-3">
               <CardBody>
                 <CardTitle tag="h6">Reparación PC</CardTitle>
-                <CardText>Solicitudes de mantenimiento</CardText>
+                <p>Solicitud de reparación de computadoras</p>
                 <Button color="primary" size="sm">Ver solicitudes</Button>
               </CardBody>
             </Card>
