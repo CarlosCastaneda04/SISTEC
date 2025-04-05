@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       fecha_creacion: {
-        type: DataTypes.DATE, // ← lo cambié a DATE, más lógico que un int
+        type: DataTypes.DATE,
         allowNull: false,
       },
       estado: {

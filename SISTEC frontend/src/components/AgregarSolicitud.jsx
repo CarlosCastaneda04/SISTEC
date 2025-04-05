@@ -76,6 +76,9 @@ function AgregarSolicitud() {
         ></textarea>
         <select>
           <option>Seleccionar el nivel de prioridad</option>
+          <option value="">Alta</option>
+          <option value="1">Baja</option>
+          <option value="2">Media</option>
         </select>
         <select
           value={id_area}
