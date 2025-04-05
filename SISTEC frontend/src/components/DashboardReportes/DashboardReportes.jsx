@@ -41,12 +41,14 @@ function DashboardReportes() {
 
       {/* Sección de Reportes */}
       <h4 className="mb-3">REPORTES</h4>
+
       <Row className="mb-5">
         {[...Array(3)].map((_, idx) => (
           <Col key={idx} sm="6" md="4">
             <Card className="shadow-sm service-card mb-3">
               <CardBody>
                 <CardTitle tag="h6">{idx === 0 ? 'Inventario' : idx === 1 ? 'Solicitudes' : 'Técnicos'}</CardTitle>
+                <p>Solicitud de repacion de de computadoras</p>
                 <Button color="primary" size="sm">Ver reportes</Button>
               </CardBody>
             </Card>
