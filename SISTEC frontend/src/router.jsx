@@ -6,7 +6,8 @@ import About from './components/About';
 import ServiciosTecnicos from './pages/ServiciosPage'; 
 import Diagnostico from './components/Diagnostico';
 import AgregarSolicitudPage from './pages/AgregarSolicitudPage';
-import DashboardAdminPage from './pages/DashboardAdminPage'; // importa tu página nueva
+import DashboardAdminPage from './pages/DashboardAdminPage'; 
+import DashboardReportesPage from './pages/DashboardReportes';
 
 
 
@@ -44,7 +45,12 @@ const router = createBrowserRouter([
       {
         path: '/dashboard-admin',
       element: <DashboardAdminPage /> 
+      },
+      {
+        path: '/dashboard-reportes',
+        element: <DashboardReportesPage />
       }
+      
     ]
   }
 ]);
