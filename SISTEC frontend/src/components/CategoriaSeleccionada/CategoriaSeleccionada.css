@@ -1,0 +1,53 @@
+.solicitud-detalle-container {
+  margin-top: 3rem;
+  width: 80%;
+}
+
+.select-input {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  font-weight: 500;
+}
+
+.comentario-box label {
+  font-weight: bold;
+}
+
+.comentario-box {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  width: 50%;
+}
+
+.comentario-textarea {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  height: 150px;
+  resize: none;
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+/* Elimina las líneas entre filas pero deja columnas */
+.tabla-solicitudes {
+  border-collapse: collapse;
+  border: 1px solid #000000;
+}
+
+.tabla-solicitudes td,
+.tabla-solicitudes th {
+  border-left: 1px solid #000000;
+  border-right: 1px solid #000000;
+}
+
+.tabla-solicitudes thead th {
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #181717;
+  background-color: #f9f9f9;
+}
+
+.tabla-solicitudes tbody td {
+  border-top: none !important; /* sin línea entre filas */
+  border-bottom: none !important;
+}
