@@ -6,6 +6,8 @@ import About from "./components/About";
 import ServiciosTecnicos from "./pages/ServiciosPage"; // asegúrate de que esta ruta coincida
 import EmpleadoTecnico from "./components/EmpleadoTecnico/EmpleadoTecnico";
 import CategoriaSeleccionada from "./components/CategoriaSeleccionada/CategoriaSeleccionada";
+import Procesadores from "./components/Procesadores/Procesadores";
+import MovimientosComponente from "./components/MovimientosComponente/MovimientosComponentes";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
       {
         path: "/categoria-seleccionada",
         element: <CategoriaSeleccionada />,
+      },
+      {
+        path: "/Procesadores",
+        element: <Procesadores />,
+      },
+      {
+        path: "/MovimientosComponente",
+        element: <MovimientosComponente />,
       },
     ],
   },
