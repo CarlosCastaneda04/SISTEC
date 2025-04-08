@@ -26,8 +26,8 @@ function Register() {
       telefono: formData.telefono,
       correo: formData.correo,
       password: formData.password,
-      rol_id: 2, // Puedes cambiar según el rol predeterminado
-      id_area: 1, // O puedes dejarlo null si no se asigna aún
+      rol_id: 3, // Puedes cambiar según el rol predeterminado
+      id_area: 0, // O puedes dejarlo null si no se asigna aún
     };
 
     try {
@@ -44,7 +44,6 @@ function Register() {
       if (res.ok) {
         alert("Registro exitoso");
         console.log(data);
-        // Aquí puedes redirigir, limpiar campos, etc.
       } else {
         alert(data.mensaje || "Error en el registro");
       }
