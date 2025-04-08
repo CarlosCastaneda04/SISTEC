@@ -11,19 +11,11 @@ module.exports = (sequelize, DataTypes) => {
       id_solicitud: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: { model: "Solicitudes", key: "id" },
       },
-      descripcion: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      solucion: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      fecha: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
+      descripcion: { type: DataTypes.STRING, allowNull: false },
+      solucion: { type: DataTypes.STRING, allowNull: false },
+      fecha: { type: DataTypes.DATE, allowNull: false },
     },
     {
       tableName: "diagnostico",

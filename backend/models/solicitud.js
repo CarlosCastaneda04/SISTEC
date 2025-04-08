@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
       id_usuario: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: "usuario", // nombre de la tabla en la BD
+          key: "id",
+        },
       },
       fecha_creacion: {
         type: DataTypes.DATE,
@@ -27,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
       id_area: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: "area",
+          key: "id",
+        },
       },
     },
     {

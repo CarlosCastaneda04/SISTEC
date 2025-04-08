@@ -11,19 +11,15 @@ module.exports = (sequelize, DataTypes) => {
       id_componente: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: { model: "componentes", key: "id" },
       },
       id_compra: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: { model: "lote_proveedor", key: "id" },
       },
-      precio_unitario: {
-        type: DataTypes.FLOAT, // Puedes usar DECIMAL si quieres más precisión
-        allowNull: false,
-      },
-      cantidad: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
+      precio_unitario: { type: DataTypes.INTEGER, allowNull: false },
+      cantidad: { type: DataTypes.INTEGER, allowNull: false },
     },
     {
       tableName: "lote",

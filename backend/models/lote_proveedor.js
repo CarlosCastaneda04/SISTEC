@@ -11,15 +11,10 @@ module.exports = (sequelize, DataTypes) => {
       id_proveedor: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: { model: "proveedor", key: "id" },
       },
-      precio_lote: {
-        type: DataTypes.DOUBLE,
-        allowNull: false,
-      },
-      fecha: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
+      precio_lote: { type: DataTypes.DOUBLE, allowNull: false },
+      fecha: { type: DataTypes.DATE, allowNull: false },
     },
     {
       tableName: "lote_proveedor",
