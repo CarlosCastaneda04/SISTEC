@@ -3,7 +3,7 @@ const router = express.Router();
 const controlador = require("../controllers/proveedorController");
 
 router.post("/", controlador.crearProveedor);
-router.get("/", controlador.listarProveedores);
+router.get("/proveedor", controlador.listarProveedores);
 router.get("/:id", controlador.obtenerProveedor);
 router.put("/:id", controlador.actualizarProveedor);
 router.delete("/:id", controlador.eliminarProveedor);

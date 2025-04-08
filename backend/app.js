@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const connectToDatabase = require("./config/connector");
+const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-const swaggerSpec = require("./swagger");
 
 // Permitir conexiones desde frontend externo
 app.use(
@@ -14,6 +14,28 @@ app.use(
 );
 // Middlewares
 app.use(express.json());
+///app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "SISTEC API",
+      version: "1.0.0",
+      description: "Documentación de la API de SISTEC",
+    },
+    servers: [
+      {
+        url: "http://localhost:3000",
+      },
+    ],
+  },
+  apis: ["./routes/*.js"], // Asegúrate de que esta ruta esté bien
+};
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+
+// ✅ Esto sirve la documentación
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Rutas

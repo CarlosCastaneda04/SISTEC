@@ -126,6 +126,40 @@ const enviarCorreoTarea = async ({
   });
 };
 
+// 🛠 Notificación de tarea asignada
+const notificarAdmin = async ({ correo, nombre, tituloTarea, prioridad }) => {
+  const html = `
+    <div style="${cardStyles}">
+      <div style="text-align: center; margin-bottom: 25px;">
+        <img src="${img_logo}" alt="Logo SISTEC" style="max-width: 200px; height: auto;">
+      </div>
+      <h2 style="${headerStyles.replace(
+        "#3498db",
+        "#e67e22"
+      )}">Nueva tarea Registrada🧩</h2>
+      <div style="color: #4a4a4a; font-size: 14px; line-height: 1.6;">
+        <p style="margin: 10px 0;"><strong>Responsable:</strong> ${nombre}</p>
+        <p style="margin: 10px 0;"><strong>Tarea:</strong> ${tituloTarea}</p>
+        <p style="margin: 10px 0;"><strong>Prioridad:</strong> 
+          <span style="color: ${
+            prioridad === "Alta" ? "#c0392b" : "#27ae60"
+          }">${prioridad}</span>
+        </p>
+        <p style="margin: 10px 0;"><strong>Fecha asignación:</strong> ${new Date().toLocaleDateString()}</p>
+      </div>
+      <p style="margin-top: 20px; color: #7f8c8d; font-size: 13px;">
+        Por favor revisar la plataforma para más detalles.
+      </p>
+    </div>
+  `;
+
+  await enviarCorreo({
+    to: correo,
+    subject: "Nueva tarea asignada 🧩",
+    html,
+  });
+};
+
 // 🔄 Restablecer contraseña (con link)
 const enviarCorreoResetPassword = async ({ correo, nombre, token }) => {
   const html = `

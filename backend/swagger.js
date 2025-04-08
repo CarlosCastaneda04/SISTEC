@@ -1,15 +1,15 @@
-const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerAutogen = require("swagger-autogen")();
 
-const options = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Your API Title",
-      version: "1.0.0",
-      description: "API documentation for your Node.js application",
-    },
+const doc = {
+  info: {
+    title: "SISTEC API",
+    description: "Documentación generada automáticamente para SISTEC",
   },
-  apis: ["./routes/*.js"], // Path to the API routes
+  host: "localhost:3000",
+  schemes: ["http"],
 };
-const swaggerSpec = swaggerJSDoc(options);
-module.exports = swaggerSpec;
+
+const outputFile = "./swagger-output.json";
+const endpointsFiles = ["./app.js"]; // o donde defines tus rutas
+
+swaggerAutogen(outputFile, endpointsFiles, doc);
