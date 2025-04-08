@@ -8,10 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         allowNull: false,
       },
-      nombre: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
+      nombre: { type: DataTypes.STRING, allowNull: false },
     },
     {
       tableName: "area",

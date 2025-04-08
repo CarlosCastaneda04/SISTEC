@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const UsoComponentes = sequelize.define(
-    "UsoComponentes",
+  const UsoComponente = sequelize.define(
+    "UsoComponente",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -11,15 +11,14 @@ module.exports = (sequelize, DataTypes) => {
       id_solicitud: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: { model: "Solicitudes", key: "id" },
       },
       id_componente: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: { model: "componentes", key: "id" },
       },
-      cant_utilizada: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
+      cant_utilizada: { type: DataTypes.INTEGER, allowNull: false },
     },
     {
       tableName: "uso_componentes",
@@ -27,5 +26,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  return UsoComponentes;
+  return UsoComponente;
 };
