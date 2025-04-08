@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("gestor_soporte", "sa", "slayerdek", {
+const sequelize = new Sequelize("gestor_soporte", "sa", "1704", {
   host: "localhost",
   dialect: "mssql",
   dialectOptions: {
