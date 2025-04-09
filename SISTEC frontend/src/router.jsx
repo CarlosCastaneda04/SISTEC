@@ -83,7 +83,6 @@ const router = createBrowserRouter([
         path: "/registrar-tecnico",
         element: <RegistrarTecnico />,
       },
-      ,
       {
         path: "/dashboard-admin",
         element: <DashboardAdminPage />,
