@@ -9,35 +9,38 @@ import CategoriaSeleccionada from "./components/CategoriaSeleccionada/CategoriaS
 import TecnicosDisponibles from "./components/TecnicosDisponibles/tecnicosDisponibles";
 import AsignarServicio from "./components/Tecnicos/AsignarServicio"; // asegúrate de que esta ruta coincida 
 import AsignacionExitosa from "./components/Tecnicos/AsignacionExitosa"; // asegúrate de que esta ruta coincida
+import Diagnostico from "./components/Diagnostico";
+import AgregarSolicitudPage from "./pages/AgregarSolicitudPage";
+
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <App />,
+    path: '/',
+    element: <App />, 
     children: [
       {
-        path: "/login",
-        element: <LoginPage />,
+        path: '/login',
+        element: <LoginPage />
       },
       {
-        path: "/acerca",
-        element: <About />,
+        path: '/acerca',
+        element: <About />
       },
       {
-        path: "/registro",
-        element: <RegisterPage />,
+        path: '/registro',
+        element: <RegisterPage />
       },
       {
-        path: "/servicios-tecnicos",
-        element: <ServiciosTecnicos />,
+        path: '/servicios-tecnicos',
+        element: <ServiciosTecnicos />
       },
       {
-        path: "/empleado-tecnico",
-        element: <EmpleadoTecnico />,
+        path: '/diagnostico',
+        element: <Diagnostico />
       },
       {
-        path: "/categoria-seleccionada",
-        element: <CategoriaSeleccionada />,
-      },
+        path: '/agregar-solicitud',
+        element: <AgregarSolicitudPage />
+      },      
       {
         path: "/tecnicos-disponibles",
         element: <TecnicosDisponibles />,
@@ -50,8 +53,8 @@ const router = createBrowserRouter([
         path: "/asignarcion-confirmada",
         element: < AsignacionExitosa/>,
       },
-    ],
-  },
+    ]
+  }
 ]);
 
 export default router;
