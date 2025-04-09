@@ -15,6 +15,8 @@ import Procesadores from "./components/Procesadores/Procesadores";
 import MovimientosComponente from "./components/MovimientosComponente/MovimientosComponentes";
 import VistaComponente from "./components/VistaComponente/VistaComponente";
 import RegistrarTecnico from "./components/RegistrarTecnico/RegistrarTecnico";
+import DashboardAdminPage from "./pages/DashboardAdminPage";
+import DashboardReportesPage from "./pages/DashboardReportes";
 
 const router = createBrowserRouter([
   {
@@ -80,6 +82,14 @@ const router = createBrowserRouter([
       {
         path: "/registrar-tecnico",
         element: <RegistrarTecnico />,
+      },
+      {
+        path: "/dashboard-admin",
+        element: <DashboardAdminPage />,
+      },
+      {
+        path: "/dashboard-reportes",
+        element: <DashboardReportesPage />,
       },
     ],
   },
