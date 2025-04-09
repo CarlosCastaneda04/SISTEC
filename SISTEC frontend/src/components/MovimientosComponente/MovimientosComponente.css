@@ -1,0 +1,22 @@
+.movimientos-container {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.movimientos-box {
+  background-color: white;
+}
+
+.tabla-movimientos th,
+.tabla-movimientos td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.tabla-movimientos thead {
+  background-color: #f9f9f9;
+}
+
+.tabla-movimientos {
+  border: 1px solid #ddd;
+}
