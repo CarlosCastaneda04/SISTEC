@@ -1,0 +1,38 @@
+.procesadores-container {
+  margin-top: 2rem;
+  width: 80%;
+}
+
+.gestion-title {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.procesadores-box {
+  background-color: white;
+}
+
+.agregar-btn {
+  border-radius: 20px;
+  padding: 0.4rem 1.2rem;
+}
+
+.filtrar-btn {
+  border-radius: 20px;
+  padding: 0.4rem 1.2rem;
+  width: 100%;
+}
+
+.tabla-procesadores th,
+.tabla-procesadores td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.tabla-procesadores thead {
+  background-color: #f9f9f9;
+}
+
+.tabla-procesadores {
+  border: 1px solid #ddd;
+}
