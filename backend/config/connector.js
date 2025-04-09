@@ -4,7 +4,7 @@ const db = require("../models");
 // Config de conexión general (sin DB específica)
 const serverConfig = {
   user: "sa",
-  password: "1704",
+  password: "slayerdek",
   server: "localhost",
   database: "master", // para crear desde aquí
   options: {
