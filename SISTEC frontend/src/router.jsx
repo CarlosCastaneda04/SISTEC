@@ -13,6 +13,8 @@ import Diagnostico from "./components/Diagnostico";
 import AgregarSolicitudPage from "./pages/AgregarSolicitudPage";
 import Procesadores from "./components/Procesadores/Procesadores";
 import MovimientosComponente from "./components/MovimientosComponente/MovimientosComponentes";
+import VistaComponente from "./components/VistaComponente/VistaComponente";
+import RegistrarTecnico from "./components/RegistrarTecnico/RegistrarTecnico";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +72,14 @@ const router = createBrowserRouter([
       {
         path: "/categoria-seleccionada",
         element: <CategoriaSeleccionada />,
+      },
+      {
+        path: "/vista-componente",
+        element: <VistaComponente />,
+      },
+      {
+        path: "/registrar-tecnico",
+        element: <RegistrarTecnico />,
       },
     ],
   },
