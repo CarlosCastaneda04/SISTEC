@@ -1,5 +1,6 @@
 const sql = require("mssql");
 const db = require("../models");
+const insertarDatosIniciales = require("../models/InitialData");  // Ajustar la ruta de la importación
 
 // Config de conexión general (sin DB específica)
 const serverConfig = {
@@ -37,6 +38,9 @@ const connectToDatabase = async () => {
     // 4. Sincronización de modelos
     await db.sequelize.sync({ force: false });
     console.log("📦 Tablas sincronizadas correctamente.");
+
+     // 5. Insertar los datos iniciales
+     await insertarDatosIniciales();  // Inserta los datos iniciales
   } catch (error) {
     console.error("❌ Error al conectar o crear la base de datos:", error);
   }
