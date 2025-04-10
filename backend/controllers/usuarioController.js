@@ -9,13 +9,16 @@ exports.register = async (req, res) => {
     req.body;
 
   try {
+    // Verificar si el correo ya existe
     const existe = await Usuario.findOne({ where: { correo } });
     if (existe) {
       return res.status(400).json({ mensaje: "El correo ya está registrado." });
     }
 
+    // Hashear contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Crear nuevo usuario
     const nuevoUsuario = await Usuario.create({
       nombre,
       apellido,
@@ -23,16 +26,26 @@ exports.register = async (req, res) => {
       correo,
       rol_id,
       password: hashedPassword,
-      id_area,
+      id_area: id_area || null, // opcional por si no se envía
     });
-    // 👇 Enviar correo de bienvenida al nuevo usuario
+
+    // Enviar correo de bienvenida
     await enviarCorreoRegistro(nuevoUsuario);
-    res
-      .status(201)
-      .json({ mensaje: "Usuario registrado con éxito", usuario: nuevoUsuario });
+
+    return res.status(201).json({
+      mensaje: "Usuario registrado con éxito",
+      usuario: {
+        id: nuevoUsuario.id,
+        nombre: nuevoUsuario.nombre,
+        apellido: nuevoUsuario.apellido,
+        correo: nuevoUsuario.correo,
+        rol_id: nuevoUsuario.rol_id,
+        id_area: nuevoUsuario.id_area,
+      },
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ mensaje: "Error al registrar usuario" });
+    console.error("Error al registrar usuario:", error);
+    return res.status(500).json({ mensaje: "Error al registrar usuario" });
   }
 };
 
