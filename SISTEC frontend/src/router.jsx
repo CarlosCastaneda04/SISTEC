@@ -17,6 +17,7 @@ import VistaComponente from "./components/VistaComponente/VistaComponente";
 import RegistrarTecnico from "./components/RegistrarTecnico/RegistrarTecnico";
 import DashboardAdminPage from "./pages/DashboardAdminPage";
 import DashboardReportesPage from "./pages/DashboardReportes";
+import ServiciosEmpleado from "./components/empleado/ServiciosEmpleado";
 
 const router = createBrowserRouter([
   {
@@ -28,12 +29,20 @@ const router = createBrowserRouter([
         element: <LoginPage />,
       },
       {
+        path: "/",
+        element: <LoginPage />,
+      },
+      {
         path: "/acerca",
         element: <About />,
       },
       {
         path: "/registro",
         element: <RegisterPage />,
+      },
+      {
+        path: "/empleadoService",
+        element: <ServiciosEmpleado />,
       },
       {
         path: "/servicios-tecnicos",

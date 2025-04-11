@@ -4,21 +4,31 @@ const Usuario = db.Usuario;
 const Asignacion = db.Asignacion;
 
 // Cliente crea solicitud
+// Crear nueva solicitud
 exports.crearSolicitud = async (req, res) => {
-  const { id_usuario, descripcion, id_area } = req.body;
+  const { id_usuario, descripcion, id_area, prioridad } = req.body;
 
   try {
+    // Validación básica
+    if (!id_usuario || !descripcion || !id_area || !prioridad) {
+      return res
+        .status(400)
+        .json({ mensaje: "Todos los campos son obligatorios." });
+    }
+
     const nuevaSolicitud = await Solicitud.create({
       id_usuario,
       fecha_creacion: new Date(),
       estado: "pendiente",
       descripcion,
       id_area,
+      prioridad,
     });
 
-    res
-      .status(201)
-      .json({ mensaje: "Solicitud creada", solicitud: nuevaSolicitud });
+    res.status(201).json({
+      mensaje: "Solicitud creada con éxito",
+      solicitud: nuevaSolicitud,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensaje: "Error al crear solicitud" });

@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "usuario", // nombre de la tabla en la BD
+          model: "usuario",
           key: "id",
         },
       },
@@ -25,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       descripcion: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      prioridad: {
         type: DataTypes.STRING,
         allowNull: false,
       },

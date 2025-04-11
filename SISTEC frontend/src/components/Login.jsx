@@ -36,10 +36,10 @@ function Login() {
 
         localStorage.setItem("usuario", JSON.stringify(data.usuario));
 
-        // 🔁 Redirección automática según el rol
+        // 🔁 Redirección automática según el rol servicios-tecnicos
         switch (data.usuario.rol_id) {
           case 1:
-            navigate("/servicios-tecnicos");
+            navigate("/empleadoService");
             break;
           case 2:
             navigate("/empleado-tecnico");
