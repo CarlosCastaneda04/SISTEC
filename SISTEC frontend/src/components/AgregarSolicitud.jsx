@@ -10,7 +10,7 @@ function AgregarSolicitud() {
   const [id_area, setIdArea] = useState("");
 
   const navigate = useNavigate();
-
+  const [prioridad, setPrioridad] = useState("");
   const usuario = JSON.parse(localStorage.getItem("usuario")); // cliente logueado
 
   const handleSubmit = async (e) => {
@@ -30,7 +30,7 @@ function AgregarSolicitud() {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/solicitudes", {
+      const res = await fetch("http://localhost:3000/crearSolicitud", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +38,10 @@ function AgregarSolicitud() {
         body: JSON.stringify({
           id_usuario: solicitud.id_usuario,
           descripcion: solicitud.descripcion,
+          prioridad: solicitud.prioridad,
           id_area: solicitud.id_area,
+          ubicacion: solicitud.ubicacion,
+          comentario: solicitud.comentario,
         }),
       });
 
@@ -74,11 +77,14 @@ function AgregarSolicitud() {
           value={detalles}
           onChange={(e) => setDetalles(e.target.value)}
         ></textarea>
-        <select>
-          <option>Seleccionar el nivel de prioridad</option>
-          <option value="">Alta</option>
-          <option value="1">Baja</option>
-          <option value="2">Media</option>
+        <select
+          value={prioridad}
+          onChange={(e) => setPrioridad(e.target.value)}
+        >
+          <option value="">Seleccionar el nivel de prioridad</option>
+          <option value="alta">Alta</option>
+          <option value="media">Media</option>
+          <option value="baja">Baja</option>
         </select>
         <select
           value={id_area}
@@ -106,7 +112,7 @@ function AgregarSolicitud() {
           placeholder={usuario?.correo || "Correo"}
           disabled
         />
-        <input type="text" placeholder="Su número de contacto" />
+
         <textarea
           placeholder="Agregar su comentario"
           value={comentario}

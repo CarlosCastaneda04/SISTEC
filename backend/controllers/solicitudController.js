@@ -6,32 +6,35 @@ const Asignacion = db.Asignacion;
 // Cliente crea solicitud
 // Crear nueva solicitud
 exports.crearSolicitud = async (req, res) => {
-  const { id_usuario, descripcion, id_area, prioridad } = req.body;
+  const { id_usuario, descripcion, prioridad, id_area, ubicacion, comentario } =
+    req.body;
+
+  // Validaciones mínimas
+  if (!id_usuario || !descripcion || !prioridad || !id_area) {
+    return res
+      .status(400)
+      .json({ mensaje: "Faltan datos obligatorios en la solicitud." });
+  }
 
   try {
-    // Validación básica
-    if (!id_usuario || !descripcion || !id_area || !prioridad) {
-      return res
-        .status(400)
-        .json({ mensaje: "Todos los campos son obligatorios." });
-    }
-
     const nuevaSolicitud = await Solicitud.create({
       id_usuario,
-      fecha_creacion: new Date(),
-      estado: "pendiente",
       descripcion,
-      id_area,
       prioridad,
+      id_area,
+      ubicacion,
+      comentario,
+      estado: "pendiente",
+      fecha_creacion: new Date(),
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       mensaje: "Solicitud creada con éxito",
       solicitud: nuevaSolicitud,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ mensaje: "Error al crear solicitud" });
+    console.error("Error al crear solicitud:", error);
+    return res.status(500).json({ mensaje: "Error al crear solicitud" });
   }
 };
 
