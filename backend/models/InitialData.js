@@ -11,7 +11,7 @@ const insertarDatosIniciales = async () => {
 
     // 2. Insertar proveedores con más detalles realistas
     const proveedores = [
-      { nombre: 'Proveedor A', direccion: 'Calle Falsa 123, San Salvador', telefono: '123456789', responsable: 'Carlos Gómez' },
+      { nombre: 'Proveedor A', direccion: 'Calle Falcon 123, San Salvador', telefono: '123456789', responsable: 'Carlos Gómez' },
       { nombre: 'Proveedor B', direccion: 'Calle Real 456, Santa Tecla', telefono: '987654321', responsable: 'Marta Hernández' },
       { nombre: 'Proveedor C', direccion: 'Avenida Central 789, Soyapango', telefono: '112233445', responsable: 'Ricardo Soto' },
       { nombre: 'Proveedor D', direccion: 'Calle 5, La Libertad', telefono: '223344556', responsable: 'Ana Rodríguez' },
