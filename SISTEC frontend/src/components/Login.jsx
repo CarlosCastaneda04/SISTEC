@@ -39,13 +39,13 @@ function Login() {
         // 🔁 Redirección automática según el rol servicios-tecnicos
         switch (data.usuario.rol_id) {
           case 1:
-            navigate("/empleadoService");
+            navigate("/clienteService");
             break;
           case 2:
             navigate("/empleado-tecnico");
             break;
           case 3:
-            navigate("/dashboard");
+            navigate("/dashboard-admin");
             break;
           default:
             navigate("/"); // fallback

@@ -18,6 +18,7 @@ import RegistrarTecnico from "./components/RegistrarTecnico/RegistrarTecnico";
 import DashboardAdminPage from "./pages/DashboardAdminPage";
 import DashboardReportesPage from "./pages/DashboardReportes";
 import ServiciosEmpleado from "./components/empleado/ServiciosEmpleado";
+import MisSolicitudes from "./components/MisSolicitudes";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
         element: <RegisterPage />,
       },
       {
-        path: "/empleadoService",
+        path: "/clienteService",
         element: <ServiciosEmpleado />,
       },
       {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "/diagnostico",
         element: <Diagnostico />,
+      },
+      {
+        path: "/misSolicitudes",
+        element: <MisSolicitudes />,
       },
       {
         path: "/agregar-solicitud",

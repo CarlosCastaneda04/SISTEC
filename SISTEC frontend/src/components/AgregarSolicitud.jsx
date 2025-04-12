@@ -8,9 +8,9 @@ function AgregarSolicitud() {
   const [ubicacion, setUbicacion] = useState("");
   const [comentario, setComentario] = useState("");
   const [id_area, setIdArea] = useState("");
+  const [prioridad, setPrioridad] = useState("");
 
   const navigate = useNavigate();
-  const [prioridad, setPrioridad] = useState("");
   const usuario = JSON.parse(localStorage.getItem("usuario")); // cliente logueado
 
   const handleSubmit = async (e) => {
@@ -20,28 +20,20 @@ function AgregarSolicitud() {
       return alert("Solo un cliente puede crear solicitudes.");
     }
 
-    const solicitud = {
-      id_usuario: usuario.id,
-      descripcion,
-      detalles,
-      id_area: parseInt(id_area),
-      ubicacion,
-      comentario,
-    };
-
     try {
-      const res = await fetch("http://localhost:3000/crearSolicitud", {
+      const res = await fetch("http://localhost:3000/solicitudes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id_usuario: solicitud.id_usuario,
-          descripcion: solicitud.descripcion,
-          prioridad: solicitud.prioridad,
-          id_area: solicitud.id_area,
-          ubicacion: solicitud.ubicacion,
-          comentario: solicitud.comentario,
+          id_usuario: usuario.id,
+          descripcion,
+          detalles,
+          prioridad,
+          id_area: parseInt(id_area),
+          ubicacion,
+          comentario,
         }),
       });
 
@@ -65,6 +57,7 @@ function AgregarSolicitud() {
 
       <section>
         <h3>Detalles de la Solicitud</h3>
+
         <input
           type="text"
           placeholder="Breve descripción del problema"
@@ -72,20 +65,24 @@ function AgregarSolicitud() {
           onChange={(e) => setDescripcion(e.target.value)}
           required
         />
+
         <textarea
           placeholder="Proporcione información detallada sobre su solicitud"
           value={detalles}
           onChange={(e) => setDetalles(e.target.value)}
         ></textarea>
+
         <select
           value={prioridad}
           onChange={(e) => setPrioridad(e.target.value)}
+          required
         >
           <option value="">Seleccionar el nivel de prioridad</option>
           <option value="alta">Alta</option>
           <option value="media">Media</option>
           <option value="baja">Baja</option>
         </select>
+
         <select
           value={id_area}
           onChange={(e) => setIdArea(e.target.value)}
@@ -96,6 +93,7 @@ function AgregarSolicitud() {
           <option value="2">Mantenimiento</option>
           <option value="3">Recursos Humanos</option>
         </select>
+
         <input
           type="text"
           placeholder="Ubicación de su oficina o número de habitación"
@@ -106,6 +104,7 @@ function AgregarSolicitud() {
 
       <section>
         <h3>Información del contacto</h3>
+
         <input type="text" placeholder={usuario?.nombre || "Nombre"} disabled />
         <input
           type="email"
