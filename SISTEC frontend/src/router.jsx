@@ -17,6 +17,8 @@ import VistaComponente from "./components/VistaComponente/VistaComponente";
 import RegistrarTecnico from "./components/RegistrarTecnico/RegistrarTecnico";
 import DashboardAdminPage from "./pages/DashboardAdminPage";
 import DashboardReportesPage from "./pages/DashboardReportes";
+import RegistrarCompra from "./components/RegistrarCompra/RegistrarCompra";
+import HistorialCompras from "./components/HistorialCompras/HistorialCompras";
 
 const router = createBrowserRouter([
   {
@@ -90,6 +92,14 @@ const router = createBrowserRouter([
       {
         path: "/dashboard-reportes",
         element: <DashboardReportesPage />,
+      },
+      {
+        path: "/registrar-compra",
+        element: <RegistrarCompra />,
+      },
+      {
+        path: "/historial-compras",
+        element: <HistorialCompras />,
       },
     ],
   },
