@@ -18,7 +18,6 @@ const insertarDatosIniciales = async () => {
       { nombre: 'Proveedor E', direccion: 'Calle Nueva 123, Antiguo Cuscatlán', telefono: '334455667', responsable: 'Luis Fernández' }
     ];
 
-    // Crear proveedores
     const proveedoresInsertados = [];
     for (let i = 0; i < proveedores.length; i++) {
       const proveedor = await db.Proveedor.create({
@@ -44,7 +43,6 @@ const insertarDatosIniciales = async () => {
       { nombre: 'Refrigeración', descripcion: 'Sistema de refrigeración líquida para mantener la CPU fría', categoria: 'Componentes', cod_producto_especifico: 1007 }
     ];
 
-    // Crear componentes
     for (let componente of componentes) {
       await db.Componente.create({
         nombre: componente.nombre,
@@ -61,20 +59,19 @@ const insertarDatosIniciales = async () => {
     // 4. Insertar compras y lotes para cada mes (enero a abril)
     const meses = ['enero', 'febrero', 'marzo', 'abril'];
     for (let i = 0; i < meses.length; i++) {
-      for (let j = 0; j < 2; j++) { // Dos compras por mes
+      for (let j = 0; j < 2; j++) {
         const loteProveedor = await db.LoteProveedor.create({
-          id_proveedor: proveedoresInsertados[j % proveedoresInsertados.length].id, // Alternando proveedores
-          precio_lote: Math.floor(Math.random() * (2000 - 1500 + 1)) + 1500, // Precio entre 1500 y 2000
-          fecha: new Date(`2025-${i + 1}-01`), // Fecha de compra al inicio del mes
+          id_proveedor: proveedoresInsertados[j % proveedoresInsertados.length].id,
+          precio_lote: Math.floor(Math.random() * (2000 - 1500 + 1)) + 1500,
+          fecha: new Date(`2025-${i + 1}-01`),
         });
 
-        // Crear lotes para cada componente
         for (let k = 0; k < componentes.length; k++) {
           await db.Lote.create({
-            id_componente: k + 1, // Usar los IDs de los componentes insertados
+            id_componente: k + 1,
             id_compra: loteProveedor.id,
-            precio_unitario: Math.floor(Math.random() * (100 - 70 + 1)) + 70, // Precio unitario entre 70 y 100
-            cantidad: 150, // Cada compra tiene 150 unidades de cada componente
+            precio_unitario: Math.floor(Math.random() * (100 - 70 + 1)) + 70,
+            cantidad: 150,
           });
         }
       }
@@ -134,23 +131,62 @@ const insertarDatosIniciales = async () => {
       'Refrigeración': ['El sistema de refrigeración no está funcionando correctamente', 'El sistema de refrigeración se bloqueó, necesita limpieza y reparación']
     };
 
+    const solicitudesInsertadas = [];
     for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
       for (let j = 0; j < 5; j++) {
         const usuario = usuariosInsertados[Math.floor(Math.random() * usuariosInsertados.length)]; // Selección aleatoria de usuario
         const componente = componentes[Math.floor(Math.random() * componentes.length)];
         const descripcion = problemas[componente.nombre][Math.floor(Math.random() * 2)];
 
-        await db.Solicitud.create({
+        const solicitudInsertada = await db.Solicitud.create({
           id_usuario: usuario.id,  // Usando un usuario aleatorio
           fecha_creacion: new Date(date),
           estado: 'pendiente',
           descripcion: descripcion,
           id_area: area1.id,  // Usando el área de mantenimiento
         });
+
+        solicitudesInsertadas.push(solicitudInsertada);
       }
     }
 
     console.log("Solicitudes insertadas.");
+
+    // 7. Resolver todas las solicitudes
+for (let solicitud of solicitudesInsertadas) {
+  const componente = componentes[Math.floor(Math.random() * componentes.length)];
+  const diagnostico = {
+    descripcion: `Diagnóstico: ${componente.nombre} requiere mantenimiento.`,
+    solucion: `Solución: Reemplazo de ${componente.nombre}.`,
+    fecha: solicitud.fecha_creacion, // Se usa la fecha de la solicitud
+  };
+
+  await db.Diagnostico.create({
+    id_solicitud: solicitud.id,
+    descripcion: diagnostico.descripcion,
+    solucion: diagnostico.solucion,
+    fecha: diagnostico.fecha,
+  });
+
+  // Actualizar el inventario de componentes (restar las piezas utilizadas)
+  const componenteActual = await db.Componente.findByPk(componente.id);
+  if (componenteActual) {
+    componenteActual.existencias -= 1; // Reducir la cantidad de componente utilizado
+    await componenteActual.save(); // Guardar los cambios en el inventario
+
+    // Crear movimiento de inventario para el componente utilizado
+    await db.MovimientoInventario.create({
+      id_componente: componente.id,
+      tipo_movimiento: 'salida',  // Tipo de movimiento, en este caso es salida de inventario
+      cantidad: 1,  // Solo se utiliza una pieza
+      fecha: diagnostico.fecha,  // Fecha del movimiento (coincide con la fecha de la solicitud)
+      cod_producto_general: componente.cod_producto_especifico,  // Código del producto
+      precio_unitario: Math.floor(Math.random() * (100 - 70 + 1)) + 70,  // Precio unitario aleatorio
+    });
+  }
+}
+
+console.log("Solicitudes resueltas y diagnosticos insertados.");
 
   } catch (error) {
     console.error("Error al insertar los datos iniciales:", error);
