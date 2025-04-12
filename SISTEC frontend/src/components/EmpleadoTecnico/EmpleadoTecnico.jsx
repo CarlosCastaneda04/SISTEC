@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Card, CardBody, Col, Container, Row, Table } from "reactstrap";
 import "./EmpleadoTecnico.css";
 
 const EmpleadoTecnico = () => {
   const [solicitudes, setSolicitudes] = useState([]);
   const usuario = JSON.parse(localStorage.getItem("usuario")); // técnico logueado
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!usuario || usuario.rol_id !== 2) return;
@@ -89,12 +91,13 @@ const EmpleadoTecnico = () => {
                   <th>Nombre</th>
                   <th>Estado</th>
                   <th>Fecha</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {solicitudes.length === 0 ? (
                   <tr>
-                    <td colSpan="5">No tienes solicitudes asignadas aún</td>
+                    <td colSpan="6">No tienes solicitudes asignadas aún</td>
                   </tr>
                 ) : (
                   solicitudes.map((item, i) => (
@@ -104,6 +107,31 @@ const EmpleadoTecnico = () => {
                       <td>{item.nombre}</td>
                       <td>{item.estado}</td>
                       <td>{item.fecha}</td>
+                      <td className="text-center">
+                        <Button
+                          size="sm"
+                          color="warning"
+                          className="me-2"
+                          onClick={() =>
+                            navigate(
+                              `/tecnico/solicitud/${item.id}/cambiar-estado`
+                            )
+                          }
+                        >
+                          Estado / Componentes
+                        </Button>
+                        <Button
+                          size="sm"
+                          color="info"
+                          onClick={() =>
+                            navigate(
+                              `/tecnico/solicitud/${item.id}/diagnostico`
+                            )
+                          }
+                        >
+                          Diagnóstico
+                        </Button>
+                      </td>
                     </tr>
                   ))
                 )}

@@ -75,7 +75,7 @@ exports.login = async (req, res) => {
 exports.obtenerTecnicos = async (req, res) => {
   try {
     const tecnicos = await db.Usuario.findAll({
-      where: { id_rol: 2 },
+      where: { rol_id: 2 },
       attributes: ["id", "nombre", "apellido"],
     });
 

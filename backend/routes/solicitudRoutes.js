@@ -11,5 +11,10 @@ router.get(
   "/tecnico/:id_tecnico",
   controlador.obtenerSolicitudesAsignadasATecnico
 );
+router.get("/:id", controlador.obtenerSolicitudPorId);
+router.put(
+  "/:solicitudId/estado",
+  controlador.cambiarEstadoYRegistrarComponentes
+);
 
 module.exports = router;

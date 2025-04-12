@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Input,
-  FormGroup,
-  Label,
-  Row,
-  Col,
-  InputGroup,
-  InputGroupText,
-} from "reactstrap";
+import { Button, Input, FormGroup, Label, Row, Col } from "reactstrap";
 import { useParams, useNavigate } from "react-router-dom";
 
 export default function AsignarServicio() {
   const { idSolicitud } = useParams();
   const navigate = useNavigate();
+
   const [form, setForm] = useState({
     tecnico: "",
     fecha: "",
@@ -21,20 +13,24 @@ export default function AsignarServicio() {
     duracion: "2",
     notas: "",
   });
+
   const [tecnicos, setTecnicos] = useState([]);
   const [solicitud, setSolicitud] = useState(null);
 
   useEffect(() => {
+    // 1. Obtener la solicitud
     fetch(`http://localhost:3000/solicitudes/${idSolicitud}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Solicitud no encontrada");
+        return res.json();
+      })
       .then((data) => {
         setSolicitud(data);
-        return fetch(
-          `http://localhost:3000/usuarios/tecnicos/area/${data.id_area}`
-        );
+        // 2. Cargar todos los técnicos (rol 2)
+        return fetch(`http://localhost:3000/usuarios/tecnicos`);
       })
       .then((res) => res.json())
-      .then(setTecnicos)
+      .then((data) => setTecnicos(data))
       .catch((err) => console.error("Error cargando datos:", err));
   }, [idSolicitud]);
 
@@ -44,8 +40,10 @@ export default function AsignarServicio() {
   };
 
   const handleAsignar = async () => {
-    if (!form.tecnico || !form.fecha || !form.duracion)
-      return alert("Completa los campos obligatorios");
+    if (!form.tecnico || !form.fecha || !form.duracion) {
+      alert("Completa todos los campos requeridos");
+      return;
+    }
 
     const inicio = `${form.fecha}T${form.hora}`;
     const fechaInicio = new Date(inicio);
@@ -67,11 +65,12 @@ export default function AsignarServicio() {
     });
 
     const result = await res.json();
+
     if (res.ok) {
       alert("Asignación realizada correctamente");
       navigate("/dashboard-admin");
     } else {
-      alert("Error: " + result.mensaje);
+      alert("Error al asignar: " + result.mensaje);
     }
   };
 

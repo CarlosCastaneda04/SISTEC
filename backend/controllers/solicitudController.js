@@ -96,6 +96,7 @@ exports.obtenerSolicitudesAsignadasATecnico = async (req, res) => {
     const tecnico = await Usuario.findByPk(id_tecnico);
 
     const resultado = solicitudes.map((s) => ({
+      id: s.id, // ✅ Añadir este campo
       codigo: `SL-${String(s.id).padStart(3, "0")}`,
       solicitud: s.descripcion,
       nombre: `${tecnico?.nombre || "Técnico"} ${tecnico?.apellido || ""}`,
@@ -140,5 +141,70 @@ exports.obtenerTecnicosPorArea = async (req, res) => {
   } catch (error) {
     console.error("Error al obtener tecnicos del area:", error);
     res.status(500).json({ mensaje: "Error interno al buscar tecnicos" });
+  }
+};
+
+exports.obtenerSolicitudPorId = async (req, res) => {
+  try {
+    const solicitud = await db.Solicitud.findByPk(req.params.id);
+    if (!solicitud) {
+      return res.status(404).json({ mensaje: "Solicitud no encontrada" });
+    }
+    res.json(solicitud);
+  } catch (error) {
+    console.error("Error al obtener la solicitud:", error);
+    res.status(500).json({ mensaje: "Error al obtener la solicitud" });
+  }
+};
+
+// Cambiar estado de la solicitud y registrar componentes utilizados
+exports.cambiarEstadoYRegistrarComponentes = async (req, res) => {
+  const { solicitudId } = req.params;
+  const { estado, componentes } = req.body;
+
+  try {
+    // 1. Actualizar estado de la solicitud
+    await Solicitud.update({ estado }, { where: { id: solicitudId } });
+
+    // 2. Registrar componentes utilizados
+    for (const comp of componentes) {
+      const componenteBD = await Componente.findByPk(comp.id);
+
+      if (!componenteBD || componenteBD.existencias <= 0) {
+        return res
+          .status(400)
+          .json({ mensaje: `Componente no válido o sin stock: ${comp.id}` });
+      }
+
+      // ⚠️ Se asume 1 unidad utilizada por cada componente (puedes modificar según tu lógica)
+      const cantidadUtilizada = 1;
+
+      // Guardar en uso_componentes
+      await UsoComponente.create({
+        id_solicitud: solicitudId,
+        id_componente: comp.id,
+        cant_utilizada: cantidadUtilizada,
+      });
+
+      // 3. Descontar stock
+      await componenteBD.decrement("existencias", { by: cantidadUtilizada });
+
+      // 4. Crear movimiento de salida en inventario
+      await MovimientoInventario.create({
+        id_componente: comp.id,
+        tipo_movimiento: "salida",
+        cantidad: cantidadUtilizada,
+        fecha: new Date(),
+        cod_producto_general: `COMP-${comp.id}`,
+        precio_unitario: componenteBD.precio_unitario || 0,
+      });
+    }
+
+    res.json({
+      mensaje: "Solicitud actualizada y componentes registrados correctamente",
+    });
+  } catch (error) {
+    console.error("❌ Error al procesar cambios de solicitud:", error);
+    res.status(500).json({ mensaje: "Error en el servidor" });
   }
 };

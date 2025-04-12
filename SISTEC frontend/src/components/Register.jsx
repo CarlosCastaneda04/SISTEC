@@ -26,7 +26,7 @@ function Register() {
       telefono: formData.telefono,
       correo: formData.correo,
       password: formData.password,
-      rol_id: 3, // Puedes cambiar según el rol predeterminado
+      rol_id: 1, // Puedes cambiar según el rol predeterminado
       id_area: 0, // O puedes dejarlo null si no se asigna aún
     };
 

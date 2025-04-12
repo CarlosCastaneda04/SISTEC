@@ -2,6 +2,7 @@ const db = require("../models");
 const Usuario = db.Usuario;
 const Solicitud = db.Solicitud;
 const Asignacion = db.Asignacion;
+const { enviarCorreoTarea } = require("../utils/mailer");
 
 //  Admin asigna técnico a una solicitud
 exports.asignarTecnico = async (req, res) => {
@@ -105,11 +106,14 @@ exports.obtenerSolicitudesAsignadasATecnico = async (req, res) => {
 };
 
 // Crear nueva asignación
+
+// Crear nueva asignación
 exports.crearAsignacion = async (req, res) => {
   try {
     const { id_solicitud, id_tecnico, fecha_asignacion, fecha_fin, notas } =
       req.body;
 
+    // 1. Crear asignación en DB
     const nuevaAsignacion = await db.Asignacion.create({
       id_solicitud,
       id_tecnico,
@@ -117,6 +121,20 @@ exports.crearAsignacion = async (req, res) => {
       fecha_fin,
       notas,
     });
+
+    // 2. Buscar información del técnico y solicitud
+    const tecnico = await db.Usuario.findByPk(id_tecnico);
+    const solicitud = await db.Solicitud.findByPk(id_solicitud);
+
+    if (tecnico && solicitud) {
+      // 3. Enviar notificación por correo
+      await enviarCorreoTarea({
+        correo: tecnico.correo,
+        nombre: tecnico.nombre,
+        tituloTarea: solicitud.descripcion,
+        prioridad: solicitud.prioridad,
+      });
+    }
 
     res.status(201).json(nuevaAsignacion);
   } catch (error) {

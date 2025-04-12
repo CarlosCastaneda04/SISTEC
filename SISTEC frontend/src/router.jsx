@@ -20,6 +20,8 @@ import DashboardReportesPage from "./pages/DashboardReportes";
 import ServiciosEmpleado from "./components/empleado/ServiciosEmpleado";
 import MisSolicitudes from "./components/MisSolicitudes";
 import RegistrarUsuarios from "./components/admin/RegistrarUsuarios";
+import { CambiarEstadoSolicitud } from "./components/Tecnicos/CambioEstadoSolicitud";
+import { DiagnosticoSolicitud } from "./components/Tecnicos/DiagnosticoSolicitud";
 
 const router = createBrowserRouter([
   {
@@ -111,6 +113,14 @@ const router = createBrowserRouter([
       {
         path: "/dashboard-reportes",
         element: <DashboardReportesPage />,
+      },
+      {
+        path: "/tecnico/solicitud/:idSolicitud/cambiar-estado",
+        element: <CambiarEstadoSolicitud />,
+      },
+      {
+        path: "/tecnico/solicitud/:idSolicitud/diagnostico",
+        element: <DiagnosticoSolicitud />,
       },
     ],
   },
