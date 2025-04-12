@@ -1,0 +1,28 @@
+.modulo-compra {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .titulo-modulo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #155f82;
+  }
+  
+  .subtitulo-modulo {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  .tabla-compra {
+    font-size: 14px;
+  }
+  
+  .btn-confirmar {
+    border-radius: 8px;
+    padding: 6px 16px;
+  }
+  
