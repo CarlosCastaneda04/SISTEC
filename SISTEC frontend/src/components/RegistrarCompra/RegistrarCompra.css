@@ -1,0 +1,36 @@
+.registro-container {
+  padding: 2rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.titulo {
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-box {
+  background-color: #eeeeee;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.form-box h5 {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+button.btn-primary {
+  background-color: #004cff;
+  border-color: #004cff;
+  border-radius: 12px;
+  font-weight: 600;
+  width: 100%;
+}
+
+button.btn-primary:hover {
+  background-color: #0036b3;
+  border-color: #0036b3;
+}
