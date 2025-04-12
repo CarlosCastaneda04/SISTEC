@@ -2,6 +2,9 @@ const db = require("../models");
 const Solicitud = db.Solicitud;
 const Usuario = db.Usuario;
 const Asignacion = db.Asignacion;
+const Componente = db.Componente;
+const UsoComponente = db.UsoComponentes;
+const MovimientoInventario = db.MovimientoInventario;
 
 // Cliente crea solicitud
 // Crear nueva solicitud

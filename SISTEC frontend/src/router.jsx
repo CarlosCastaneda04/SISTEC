@@ -20,7 +20,7 @@ import DashboardReportesPage from "./pages/DashboardReportes";
 import ServiciosEmpleado from "./components/empleado/ServiciosEmpleado";
 import MisSolicitudes from "./components/MisSolicitudes";
 import RegistrarUsuarios from "./components/admin/RegistrarUsuarios";
-import { CambiarEstadoSolicitud } from "./components/Tecnicos/CambioEstadoSolicitud";
+import { CambiarEstadoSolicitud } from "./components/Tecnicos/CambiarEstadoSolicitud";
 import { DiagnosticoSolicitud } from "./components/Tecnicos/DiagnosticoSolicitud";
 
 const router = createBrowserRouter([
