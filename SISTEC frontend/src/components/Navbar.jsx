@@ -47,6 +47,9 @@ function Navbar() {
             <Link to="/dashboard-admin">Dashboard</Link>
             <Link to="/usuarios">Gestión de Usuarios</Link>
             <Link to="/inventario">Inventario</Link>
+
+            <Link to="/registrar-compra">Compra</Link>
+            <Link to="/recomendaciones-compra">Toma de decision</Link>
             <button onClick={logout}>Cerrar Sesión</button>
           </>
         );

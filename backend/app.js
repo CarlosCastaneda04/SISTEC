@@ -42,12 +42,13 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/usuarios", require("./routes/usuarioRoutes"));
 app.use("/componentes", require("./routes/componenteRoutes"));
 app.use("/inventario", require("./routes/inventarioRoutes"));
-app.use("/compras", require("./routes/loteProveedorRoutes"));
+//app.use("/compras", require("./routes/loteProveedorRoutes"));
 app.use("/solicitudes", require("./routes/solicitudRoutes"));
 app.use("/asignaciones", require("./routes/asignacionRoutes"));
 app.use("/uso-componentes", require("./routes/usoComponentesRoutes"));
 app.use("/diagnostico", require("./routes/diagnosticoRoutes"));
 app.use("/api/admin", require("./routes/dashboardAdminRoutes")); // prefijo personalizado
+app.use("/compras", require("./routes/compraRoutes"));
 
 // Iniciar conexión a la base de datos
 connectToDatabase();

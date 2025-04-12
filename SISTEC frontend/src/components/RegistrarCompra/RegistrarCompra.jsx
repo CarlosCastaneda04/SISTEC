@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Row,
@@ -14,26 +14,102 @@ import "./RegistrarCompra.css";
 
 const RegistrarCompra = () => {
   const [loteActual, setLoteActual] = useState([]);
+  const [componentes, setComponentes] = useState([]);
+  const [proveedores, setProveedores] = useState([]);
+
   const [componente, setComponente] = useState("");
   const [precioUnitario, setPrecioUnitario] = useState("");
   const [cantidad, setCantidad] = useState("");
-  const [fechaComponente, setFechaComponente] = useState("");
+
+  const [proveedorId, setProveedorId] = useState("");
+  const [precioLote, setPrecioLote] = useState("");
+  const [fechaCompra, setFechaCompra] = useState("");
+
+  const [nombre, setNombre] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [idTributario, setIdTributario] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [nombreResponsable, setNombreResponsable] = useState("");
+
+  useEffect(() => {
+    fetch("http://localhost:3000/componentes")
+      .then((res) => res.json())
+      .then(setComponentes);
+
+    fetch("http://localhost:3000/compras/proveedores")
+      .then((res) => res.json())
+      .then(setProveedores);
+  }, []);
 
   const handleAgregar = () => {
     if (!componente || !precioUnitario || !cantidad) return;
 
+    const compSeleccionado = componentes.find(
+      (c) => c.id === parseInt(componente)
+    );
     const nuevo = {
-      codigo: `SKU-00${loteActual.length + 1}`,
-      componente,
-      cantidad,
-      precio: precioUnitario,
+      id_componente: compSeleccionado.id,
+      nombre: compSeleccionado.nombre,
+      precio_unitario: parseFloat(precioUnitario),
+      cantidad: parseInt(cantidad),
     };
     setLoteActual([...loteActual, nuevo]);
 
     setComponente("");
     setPrecioUnitario("");
     setCantidad("");
-    setFechaComponente("");
+  };
+
+  const handleConfirmarCompra = async () => {
+    if (
+      !nombre ||
+      !direccion ||
+      !idTributario ||
+      !telefono ||
+      !nombreResponsable ||
+      !precioLote ||
+      !fechaCompra ||
+      loteActual.length === 0
+    ) {
+      alert("Completa todos los campos obligatorios y añade componentes.");
+      return;
+    }
+
+    const body = {
+      proveedor: {
+        nombre,
+        direccion,
+        id_tributario: idTributario,
+        telefono,
+        nombre_responsable: nombreResponsable,
+      },
+      lote: {
+        precio_lote: parseFloat(precioLote),
+        fecha: fechaCompra,
+      },
+      componentes: loteActual,
+    };
+
+    const res = await fetch("http://localhost:3000/compras/registrar-compra", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    if (res.ok) {
+      alert("Compra registrada correctamente");
+      setLoteActual([]);
+      setProveedorId("");
+      setPrecioLote("");
+      setFechaCompra("");
+      setNombre("");
+      setDireccion("");
+      setIdTributario("");
+      setTelefono("");
+      setNombreResponsable("");
+    } else {
+      alert("Error al registrar la compra");
+    }
   };
 
   return (
@@ -51,8 +127,11 @@ const RegistrarCompra = () => {
                 onChange={(e) => setComponente(e.target.value)}
               >
                 <option value="">Seleccione</option>
-                <option value="MOBA">MOBA</option>
-                <option value="Pantalla">Pantalla</option>
+                {componentes.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.nombre}
+                  </option>
+                ))}
               </Input>
             </FormGroup>
             <FormGroup>
@@ -71,14 +150,6 @@ const RegistrarCompra = () => {
                 onChange={(e) => setCantidad(e.target.value)}
               />
             </FormGroup>
-            <FormGroup>
-              <Label>Fecha</Label>
-              <Input
-                type="date"
-                value={fechaComponente}
-                onChange={(e) => setFechaComponente(e.target.value)}
-              />
-            </FormGroup>
             <Button color="primary" onClick={handleAgregar}>
               Agregar al lote
             </Button>
@@ -86,23 +157,42 @@ const RegistrarCompra = () => {
         </Col>
 
         <Col md={5} className="form-box m-2">
-          <h5>Proveedor</h5>
+          <h5>Datos del Proveedor</h5>
           <Form>
             <FormGroup>
               <Label>Nombre</Label>
-              <Input />
+              <Input
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+              />
             </FormGroup>
             <FormGroup>
               <Label>Dirección</Label>
-              <Input />
+              <Input
+                value={direccion}
+                onChange={(e) => setDireccion(e.target.value)}
+              />
             </FormGroup>
             <FormGroup>
               <Label>ID Tributario</Label>
-              <Input />
+              <Input
+                value={idTributario}
+                onChange={(e) => setIdTributario(e.target.value)}
+              />
             </FormGroup>
             <FormGroup>
               <Label>Teléfono</Label>
-              <Input />
+              <Input
+                value={telefono}
+                onChange={(e) => setTelefono(e.target.value)}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label>Nombre Responsable</Label>
+              <Input
+                value={nombreResponsable}
+                onChange={(e) => setNombreResponsable(e.target.value)}
+              />
             </FormGroup>
           </Form>
         </Col>
@@ -113,45 +203,48 @@ const RegistrarCompra = () => {
           <h5>Lote del Proveedor</h5>
           <Form>
             <FormGroup>
-              <Label>Proveedor</Label>
-              <Input type="select">
-                <option value="">Seleccione</option>
-              </Input>
-            </FormGroup>
-            <FormGroup>
               <Label>Precio del lote</Label>
-              <Input />
+              <Input
+                type="number"
+                value={precioLote}
+                onChange={(e) => setPrecioLote(e.target.value)}
+              />
             </FormGroup>
             <FormGroup>
               <Label>Fecha</Label>
-              <Input type="date" />
+              <Input
+                type="date"
+                value={fechaCompra}
+                onChange={(e) => setFechaCompra(e.target.value)}
+              />
             </FormGroup>
-            <Button color="primary">Confirmar compra</Button>
+            <Button color="success" onClick={handleConfirmarCompra}>
+              Confirmar compra
+            </Button>
           </Form>
         </Col>
+
         <Col md={5} className="form-box m-2">
           <h5>Lote Actual</h5>
           <Table bordered>
             <thead>
               <tr>
-                <th>Código</th>
                 <th>Componente</th>
                 <th>Cantidad</th>
-                <th>Precio</th>
+                <th>Precio Unitario</th>
               </tr>
             </thead>
             <tbody>
               {loteActual.map((item, index) => (
                 <tr key={index}>
-                  <td>{item.codigo}</td>
-                  <td>{item.componente}</td>
+                  <td>{item.nombre}</td>
                   <td>{item.cantidad}</td>
-                  <td>{item.precio}</td>
+                  <td>${item.precio_unitario.toFixed(2)}</td>
                 </tr>
               ))}
               {loteActual.length === 0 && (
                 <tr>
-                  <td colSpan="4" className="text-center">
+                  <td colSpan="3" className="text-center">
                     No hay componentes aún.
                   </td>
                 </tr>
