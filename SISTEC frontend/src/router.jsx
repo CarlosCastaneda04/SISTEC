@@ -83,9 +83,10 @@ const router = createBrowserRouter([
         element: <Procesadores />,
       },
       {
-        path: "/MovimientosComponente",
+        path: "/MovimientosComponente/:categoria",
         element: <MovimientosComponente />,
       },
+
       {
         path: "/empleado-tecnico",
         element: <EmpleadoTecnico />,
@@ -95,7 +96,7 @@ const router = createBrowserRouter([
         element: <CategoriaSeleccionada />,
       },
       {
-        path: "/vista-componente",
+        path: "/inventario",
         element: <VistaComponente />,
       },
       {

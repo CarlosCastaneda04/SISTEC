@@ -1,57 +1,40 @@
-
-
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Table, Row, Col, Input, InputGroup, InputGroupText } from "reactstrap";
-import "./MovimientosComponente.css"; 
+import "./MovimientosComponente.css";
 
 const MovimientosComponente = () => {
-  const movimientos = [
-    {
-      lote: "001",
-      nombre: "Procesador Intel i7-12700k",
-      serie: "6526",
-      estado: "Disponible",
-      categoria: "PROCESADORES",
-    },
-    {
-      lote: "Floyd 002",
-      nombre: "Yahoo",
-      serie: "929724",
-      estado: "No disponible",
-      categoria: "PROCESADORES",
-    },
-    {
-      lote: "003",
-      nombre: "Adobe",
-      serie: "824984",
-      estado: "Devolucion",
-      categoria: "PROCESADORES",
-    },
-    {
-      lote: "004",
-      nombre: "Tesla",
-      serie: "84848",
-      estado: "Disponible",
-      categoria: "PROCESADORES",
-    },
-  ];
+  const { categoria } = useParams();
+  const [movimientos, setMovimientos] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/inventario/categoria/${categoria}`)
+      .then((res) => res.json())
+      .then((data) => setMovimientos(data))
+      .catch((err) => {
+        console.error("Error al obtener movimientos:", err);
+        setMovimientos([]);
+      });
+  }, [categoria]);
 
   return (
     <div className="movimientos-container">
       <h4 className="fw-bold mb-4">
-        Movimientos del Componente (Nombre del componente)
+        Movimientos del Componente ({decodeURIComponent(categoria)})
       </h4>
 
       <div className="movimientos-box p-4 shadow-sm rounded mb-4">
         <div className="d-flex justify-content-between align-items-center flex-wrap mb-3">
-          <strong className="gestion-title">Gestión de Procesadores</strong>
+          <strong className="gestion-title">
+            Gestión de {decodeURIComponent(categoria)}
+          </strong>
           <Row className="w-50 justify-content-end">
             <Col md="8">
               <InputGroup>
                 <InputGroupText>
                   <i className="bi bi-search"></i>
                 </InputGroupText>
-                <Input placeholder="Buscar Procesador" />
+                <Input placeholder={`Buscar en ${categoria}`} />
               </InputGroup>
             </Col>
           </Row>
@@ -68,15 +51,21 @@ const MovimientosComponente = () => {
             </tr>
           </thead>
           <tbody>
-            {movimientos.map((item, index) => (
-              <tr key={index}>
-                <td>{item.lote}</td>
-                <td>{item.nombre}</td>
-                <td>{item.serie}</td>
-                <td>{item.estado}</td>
-                <td>{item.categoria}</td>
+            {movimientos.length === 0 ? (
+              <tr>
+                <td colSpan="5">No se encontraron movimientos.</td>
               </tr>
-            ))}
+            ) : (
+              movimientos.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.lote}</td>
+                  <td>{item.nombre}</td>
+                  <td>{item.serie}</td>
+                  <td>{item.estado}</td>
+                  <td>{item.categoria}</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </Table>
       </div>

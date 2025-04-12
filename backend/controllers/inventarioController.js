@@ -103,3 +103,62 @@ exports.alertasStockBajo = async (req, res) => {
     });
   }
 };
+
+// Obtener últimos movimientos de inventario por componente
+exports.obtenerComponentesRecientes = async (req, res) => {
+  try {
+    // Buscar los últimos 6 movimientos registrados
+    const movimientos = await Movimiento.findAll({
+      order: [["fecha", "DESC"]],
+      limit: 6,
+    });
+
+    const componentes = await Componente.findAll();
+
+    const resultado = movimientos.map((m) => {
+      const comp = componentes.find((c) => c.id === m.id_componente);
+      return {
+        codigo: `DF-${m.id}`,
+        nombre: comp ? comp.nombre : "Componente desconocido",
+        categoria: comp ? comp.categoria : "Sin categoría",
+        entradaSalida:
+          m.tipo_movimiento === "entrada"
+            ? `${m.cantidad}/0`
+            : `0/${m.cantidad}`,
+        fecha: new Date(m.fecha).toLocaleDateString("es-ES"),
+      };
+    });
+
+    res.json(resultado);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al obtener componentes recientes" });
+  }
+};
+
+// Obtener componentes por categoría
+exports.obtenerPorCategoria = async (req, res) => {
+  const categoria = decodeURIComponent(req.params.categoria);
+
+  try {
+    const componentes = await db.Componente.findAll({
+      where: { categoria },
+      order: [["id", "DESC"]],
+    });
+
+    const resultado = componentes.map((c) => ({
+      lote: c.id, // o puedes generar un código como LOTE-001
+      nombre: c.nombre,
+      serie: c.cod_producto_especifico,
+      estado: c.estado,
+      categoria: c.categoria,
+    }));
+
+    res.json(resultado);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ mensaje: "Error al obtener componentes por categoría" });
+  }
+};
