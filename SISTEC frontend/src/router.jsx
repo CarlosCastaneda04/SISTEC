@@ -19,6 +19,7 @@ import DashboardAdminPage from "./pages/DashboardAdminPage";
 import DashboardReportesPage from "./pages/DashboardReportes";
 import ServiciosEmpleado from "./components/empleado/ServiciosEmpleado";
 import MisSolicitudes from "./components/MisSolicitudes";
+import RegistrarUsuarios from "./components/admin/RegistrarUsuarios";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/registro",
         element: <RegisterPage />,
+      },
+      {
+        path: "/usuarios",
+        element: <RegistrarUsuarios />,
       },
       {
         path: "/clienteService",

@@ -1,0 +1,47 @@
+.registro-usuarios-container {
+  padding: 2rem;
+  text-align: center;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.card-registro {
+  background: #f5f5f5;
+  padding: 2rem;
+  width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.card-registro:hover {
+  transform: scale(1.03);
+}
+
+.card-registro .icono {
+  font-size: 3rem;
+  color: #155f82;
+  margin-bottom: 1rem;
+}
+
+.card-registro button {
+  margin-top: 1rem;
+  background-color: #155f82;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.card-registro button:hover {
+  background-color: #104d68;
+}
