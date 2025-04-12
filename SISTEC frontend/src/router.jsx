@@ -79,7 +79,7 @@ const router = createBrowserRouter([
         element: <AsignacionExitosa />,
       },
       {
-        path: "/Procesadores",
+        path: "/Procesadores/:idLote",
         element: <Procesadores />,
       },
       {

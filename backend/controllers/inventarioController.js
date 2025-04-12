@@ -1,6 +1,9 @@
 const db = require("../models");
 const Movimiento = db.MovimientoInventario;
 const Componente = db.Componente;
+const MovimientoInventario = db.MovimientoInventario;
+const { Op } = require("sequelize");
+const Lote = db.Lote;
 
 const generarCodigoGeneral = (nombre) => {
   const base = nombre.trim().toUpperCase().replace(/\s+/g, "").slice(0, 5);
@@ -136,29 +139,94 @@ exports.obtenerComponentesRecientes = async (req, res) => {
   }
 };
 
-// Obtener componentes por categoría
+// Obtener componentes por categoría incluyendo su lote
 exports.obtenerPorCategoria = async (req, res) => {
   const categoria = decodeURIComponent(req.params.categoria);
+  const { Componente, Lote } = require("../models");
 
   try {
-    const componentes = await db.Componente.findAll({
+    // Obtener todos los componentes por categoría
+    const componentes = await Componente.findAll({
       where: { categoria },
       order: [["id", "DESC"]],
     });
 
-    const resultado = componentes.map((c) => ({
-      lote: c.id, // o puedes generar un código como LOTE-001
-      nombre: c.nombre,
-      serie: c.cod_producto_especifico,
-      estado: c.estado,
-      categoria: c.categoria,
-    }));
+    // Para cada componente, buscar su lote (último relacionado)
+    const resultado = await Promise.all(
+      componentes.map(async (c) => {
+        const lote = await Lote.findOne({
+          where: { id_componente: c.id },
+          order: [["id", "DESC"]],
+        });
+
+        return {
+          lote: lote?.id || null, // ID real del lote
+          nombre: c.nombre,
+          serie: c.cod_producto_especifico,
+          estado: c.estado,
+          categoria: c.categoria,
+        };
+      })
+    );
 
     res.json(resultado);
   } catch (error) {
-    console.error(error);
+    console.error("Error:", error);
     res
       .status(500)
       .json({ mensaje: "Error al obtener componentes por categoría" });
+  }
+};
+
+exports.obtenerComponentesPorLote = async (req, res) => {
+  const { idLote } = req.params;
+
+  try {
+    // Obtener el registro del lote
+    const lote = await Lote.findOne({ where: { id: idLote } });
+
+    if (!lote) {
+      return res.status(404).json({ mensaje: "Lote no encontrado." });
+    }
+
+    // Buscar el componente correspondiente a ese lote
+    const componente = await Componente.findOne({
+      where: { id: lote.id_componente },
+    });
+
+    if (!componente) {
+      return res
+        .status(404)
+        .json({ mensaje: "Componente no encontrado para el lote." });
+    }
+
+    // Buscar movimientos para ese componente
+    const movimientos = await MovimientoInventario.findAll({
+      where: { id_componente: componente.id },
+    });
+
+    const entradas = movimientos
+      .filter((m) => m.tipo_movimiento === "entrada")
+      .reduce((acc, m) => acc + m.cantidad, 0);
+
+    const salidas = movimientos
+      .filter((m) => m.tipo_movimiento === "salida")
+      .reduce((acc, m) => acc + m.cantidad, 0);
+
+    const resultado = [
+      {
+        id: componente.id,
+        nombre: componente.nombre,
+        existencias: componente.existencias,
+        entradas,
+        salidas,
+        precio: `$${lote.precio_unitario.toFixed(2)}`,
+      },
+    ];
+
+    res.json(resultado);
+  } catch (error) {
+    console.error("Error al obtener componentes del lote:", error);
+    res.status(500).json({ mensaje: "Error en el servidor" });
   }
 };

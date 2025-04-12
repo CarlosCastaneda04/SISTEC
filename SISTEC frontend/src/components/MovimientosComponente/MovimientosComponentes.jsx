@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Table, Row, Col, Input, InputGroup, InputGroupText } from "reactstrap";
 import "./MovimientosComponente.css";
 
 const MovimientosComponente = () => {
   const { categoria } = useParams();
   const [movimientos, setMovimientos] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:3000/inventario/categoria/${categoria}`)
@@ -16,6 +17,10 @@ const MovimientosComponente = () => {
         setMovimientos([]);
       });
   }, [categoria]);
+
+  const irAComponentesLote = (loteId) => {
+    navigate(`/procesadores/${loteId}`);
+  };
 
   return (
     <div className="movimientos-container">
@@ -48,12 +53,13 @@ const MovimientosComponente = () => {
               <th>SERIE</th>
               <th>ESTADO</th>
               <th>CATEGORIA</th>
+              <th>Ver</th>
             </tr>
           </thead>
           <tbody>
             {movimientos.length === 0 ? (
               <tr>
-                <td colSpan="5">No se encontraron movimientos.</td>
+                <td colSpan="6">No se encontraron movimientos.</td>
               </tr>
             ) : (
               movimientos.map((item, index) => (
@@ -63,6 +69,14 @@ const MovimientosComponente = () => {
                   <td>{item.serie}</td>
                   <td>{item.estado}</td>
                   <td>{item.categoria}</td>
+                  <td>
+                    <button
+                      className="btn btn-info btn-sm"
+                      onClick={() => irAComponentesLote(item.lote)}
+                    >
+                      Ver Lote
+                    </button>
+                  </td>
                 </tr>
               ))
             )}
