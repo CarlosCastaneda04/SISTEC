@@ -152,9 +152,11 @@ const insertarDatosIniciales = async () => {
 
     console.log("Solicitudes insertadas.");
 
-    // 7. Resolver todas las solicitudes
+   // 7. Resolver todas las solicitudes, crear diagnósticos y asignaciones
 for (let solicitud of solicitudesInsertadas) {
   const componente = componentes[Math.floor(Math.random() * componentes.length)];
+
+  // Crear diagnóstico para la solicitud
   const diagnostico = {
     descripcion: `Diagnóstico: ${componente.nombre} requiere mantenimiento.`,
     solucion: `Solución: Reemplazo de ${componente.nombre}.`,
@@ -168,6 +170,25 @@ for (let solicitud of solicitudesInsertadas) {
     fecha: diagnostico.fecha,
   });
 
+  // Seleccionar un técnico aleatorio para la asignación
+  const tecnico = usuariosInsertados[Math.floor(Math.random() * usuariosInsertados.length)];
+
+  // Establecer la fecha de finalización (1 día después de la solicitud)
+  const fechaFin = new Date(solicitud.fecha_creacion);
+  fechaFin.setDate(fechaFin.getDate() + 1);  // 1 día después de la fecha de la solicitud
+
+  // Crear notas para la asignación
+  const notas = `Asignación para la solicitud ${solicitud.id}: El técnico ${tecnico.nombre} ${tecnico.apellido} ha sido asignado para reparar el componente ${componente.nombre}.`;
+
+  // Crear asignación de la solicitud al técnico
+  await db.Asignacion.create({
+    id_solicitud: solicitud.id,
+    id_tecnico: tecnico.id,  // Asignar un técnico aleatorio
+    fecha_asignacion: solicitud.fecha_creacion, // Usar la fecha de la solicitud para la asignación
+    fecha_fin: fechaFin,  // Fecha de finalización de la asignación (1 día después)
+    notas: notas,  // Notas sobre la asignación
+  });
+
   // Actualizar el inventario de componentes (restar las piezas utilizadas)
   const componenteActual = await db.Componente.findByPk(componente.id);
   if (componenteActual) {
@@ -177,17 +198,18 @@ for (let solicitud of solicitudesInsertadas) {
     // Crear movimiento de inventario para el componente utilizado
     await db.MovimientoInventario.create({
       id_componente: componente.id,
-      tipo_movimiento: 'salida',  // Tipo de movimiento, en este caso es salida de inventario
-      cantidad: 1,  // Solo se utiliza una pieza
+      tipo_movimiento: 'salida',  // Tipo de movimiento: salida
+      cantidad: 1,  // Se utiliza una pieza
       fecha: diagnostico.fecha,  // Fecha del movimiento (coincide con la fecha de la solicitud)
       cod_producto_general: componente.cod_producto_especifico,  // Código del producto
       precio_unitario: Math.floor(Math.random() * (100 - 70 + 1)) + 70,  // Precio unitario aleatorio
     });
   }
+
+  console.log(`Solicitud ${solicitud.id} resuelta, diagnóstico insertado, asignación creada, y movimiento de inventario realizado.`);
 }
 
-console.log("Solicitudes resueltas y diagnosticos insertados.");
-
+console.log("Todas las solicitudes han sido resueltas, diagnósticos y asignaciones creados, y movimientos de inventario realizados.");
   } catch (error) {
     console.error("Error al insertar los datos iniciales:", error);
   }
