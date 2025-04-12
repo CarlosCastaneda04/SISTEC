@@ -44,7 +44,7 @@ function Navbar() {
         return (
           <>
             <span className="nav-user">🛠️ {usuario.nombre}</span>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/dashboard-admin">Dashboard</Link>
             <Link to="/usuarios">Gestión de Usuarios</Link>
             <Link to="/inventario">Inventario</Link>
             <button onClick={logout}>Cerrar Sesión</button>

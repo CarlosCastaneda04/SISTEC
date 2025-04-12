@@ -29,7 +29,9 @@ function RegistrarUsuarios() {
           <p>
             Crea una cuenta con privilegios de gestión completa del sistema.
           </p>
-          <button onClick={() => navigate("/registro-admin")}>Registrar</button>
+          <button onClick={() => navigate("/registrar-tecnico")}>
+            Registrar
+          </button>
         </div>
       </div>
     </div>
