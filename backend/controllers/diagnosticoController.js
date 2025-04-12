@@ -85,3 +85,30 @@ exports.obtenerDiagnosticosCliente = async (req, res) => {
       .json({ mensaje: "Error al obtener diagnósticos del cliente" });
   }
 };
+
+exports.crearDiagnostico = async (req, res) => {
+  const { id_solicitud, descripcion, solucion } = req.body;
+
+  try {
+    // Validar datos requeridos
+    if (!id_solicitud || !descripcion || !solucion) {
+      return res.status(400).json({ mensaje: "Faltan datos obligatorios." });
+    }
+
+    // Crear el diagnóstico
+    const nuevo = await Diagnostico.create({
+      id_solicitud,
+      descripcion,
+      solucion,
+      fecha: new Date(),
+    });
+
+    res.status(201).json({
+      mensaje: "Diagnóstico registrado correctamente",
+      diagnostico: nuevo,
+    });
+  } catch (error) {
+    console.error("❌ Error al registrar diagnóstico:", error);
+    res.status(500).json({ mensaje: "Error en el servidor" });
+  }
+};

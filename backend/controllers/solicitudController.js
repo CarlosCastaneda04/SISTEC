@@ -211,3 +211,46 @@ exports.cambiarEstadoYRegistrarComponentes = async (req, res) => {
     res.status(500).json({ mensaje: "Error en el servidor" });
   }
 };
+
+exports.obtenerComponentesUsadosPorSolicitud = async (req, res) => {
+  const { idSolicitud } = req.params;
+
+  try {
+    // 1. Obtener todos los registros de uso de componentes para esta solicitud
+    const usos = await UsoComponente.findAll({
+      where: { id_solicitud: idSolicitud },
+    });
+
+    if (!usos.length) {
+      return res.json([]); // No se encontraron componentes usados
+    }
+
+    // 2. Extraer los IDs de componentes
+    const idsComponentes = usos.map((u) => u.id_componente);
+
+    // 3. Obtener los detalles de los componentes
+    const componentes = await Componente.findAll({
+      where: { id: idsComponentes },
+    });
+
+    // 4. Combinar datos
+    const resultado = componentes.map((comp) => {
+      const uso = usos.find((u) => u.id_componente === comp.id);
+      return {
+        id: comp.id,
+        nombre: comp.nombre,
+        descripcion: comp.descripcion,
+        estado: comp.estado,
+        categoria: comp.categoria,
+        cantidad: uso?.cant_utilizada || 0,
+      };
+    });
+
+    res.json(resultado);
+  } catch (error) {
+    console.error("❌ Error al obtener componentes usados:", error);
+    res
+      .status(500)
+      .json({ mensaje: "Error al obtener los componentes utilizados" });
+  }
+};

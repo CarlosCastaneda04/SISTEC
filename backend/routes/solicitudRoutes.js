@@ -16,5 +16,9 @@ router.put(
   "/:solicitudId/estado",
   controlador.cambiarEstadoYRegistrarComponentes
 );
+router.get(
+  "/:idSolicitud/componentes-usados",
+  controlador.obtenerComponentesUsadosPorSolicitud
+);
 
 module.exports = router;
