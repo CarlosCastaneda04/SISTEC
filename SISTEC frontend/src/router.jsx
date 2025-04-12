@@ -108,6 +108,7 @@ const router = createBrowserRouter([
         path: "/evaluacion-tecnicos",
         element: <EvaluacionTecnicos/>,
       },
+      {
         path: "/registrar-compra",
         element: <RegistrarCompra />,
       },
