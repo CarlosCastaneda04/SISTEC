@@ -49,6 +49,7 @@ app.use("/uso-componentes", require("./routes/usoComponentesRoutes"));
 app.use("/diagnostico", require("./routes/diagnosticoRoutes"));
 app.use("/api/admin", require("./routes/dashboardAdminRoutes")); // prefijo personalizado
 app.use("/compras", require("./routes/compraRoutes"));
+app.use("/recomendaciones", require("./routes/recomendacionCompraRoutes"));
 
 // Iniciar conexión a la base de datos
 connectToDatabase();
