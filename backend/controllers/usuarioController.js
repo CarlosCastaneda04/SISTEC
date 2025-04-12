@@ -71,3 +71,22 @@ exports.login = async (req, res) => {
     res.status(500).json({ mensaje: "Error en el inicio de sesión" });
   }
 };
+
+exports.obtenerTecnicos = async (req, res) => {
+  try {
+    const tecnicos = await db.Usuario.findAll({
+      where: { id_rol: 2 },
+      attributes: ["id", "nombre", "apellido"],
+    });
+
+    const resultado = tecnicos.map((t) => ({
+      id: t.id,
+      nombre: `${t.nombre} ${t.apellido}`,
+    }));
+
+    res.json(resultado);
+  } catch (error) {
+    console.error("Error al obtener técnicos:", error);
+    res.status(500).json({ mensaje: "Error en el servidor" });
+  }
+};
