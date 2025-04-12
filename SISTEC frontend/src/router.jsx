@@ -16,7 +16,10 @@ import MovimientosComponente from "./components/MovimientosComponente/Movimiento
 import VistaComponente from "./components/VistaComponente/VistaComponente";
 import RegistrarTecnico from "./components/RegistrarTecnico/RegistrarTecnico";
 import DashboardAdminPage from "./pages/DashboardAdminPage";
+import DashboardAdmin from "./components/admin/DashboardAdmin";
 import DashboardReportesPage from "./pages/DashboardReportes";
+import RecomendacionesCompra from "./components/TomaDecisiones/RecomendacionesCompra";
+import EvaluacionTecnicos from "./components/TomaDecisiones/EvaluacionTecnicos";
 import RegistrarCompra from "./components/RegistrarCompra/RegistrarCompra";
 import HistorialCompras from "./components/HistorialCompras/HistorialCompras";
 
@@ -86,7 +89,7 @@ const router = createBrowserRouter([
         element: <RegistrarTecnico />,
       },
       {
-        path: "/dashboard-admin",
+        path: "/dashboard-admin-page",
         element: <DashboardAdminPage />,
       },
       {
@@ -94,13 +97,24 @@ const router = createBrowserRouter([
         element: <DashboardReportesPage />,
       },
       {
+        path: "/dashboard-admin",
+        element: <DashboardAdmin />,
+      },
+      {
+        path: "/recomendaciones-compra", 
+        element: <RecomendacionesCompra />,
+      },
+      {
+        path: "/evaluacion-tecnicos",
+        element: <EvaluacionTecnicos/>,
+      },
         path: "/registrar-compra",
         element: <RegistrarCompra />,
       },
       {
         path: "/historial-compras",
         element: <HistorialCompras />,
-      },
+      }
     ],
   },
 ]);
