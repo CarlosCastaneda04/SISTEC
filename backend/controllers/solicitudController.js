@@ -109,3 +109,36 @@ exports.obtenerSolicitudesAsignadasATecnico = async (req, res) => {
     res.status(500).json({ mensaje: "Error al obtener solicitudes asignadas" });
   }
 };
+
+exports.obtenerSolicitudPorId = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const solicitud = await db.Solicitud.findByPk(id);
+    if (!solicitud) {
+      return res.status(404).json({ mensaje: "Solicitud no encontrada" });
+    }
+    res.json(solicitud);
+  } catch (error) {
+    console.error("Error al obtener solicitud:", error);
+    res.status(500).json({ mensaje: "Error interno del servidor" });
+  }
+};
+
+// Obtener técnicos según el área
+exports.obtenerTecnicosPorArea = async (req, res) => {
+  const { idArea } = req.params;
+  try {
+    const tecnicos = await db.Usuario.findAll({
+      where: {
+        rol: "tecnico",
+        id_area: idArea,
+      },
+      attributes: ["id", "nombre"],
+    });
+
+    res.json(tecnicos);
+  } catch (error) {
+    console.error("Error al obtener tecnicos del area:", error);
+    res.status(500).json({ mensaje: "Error interno al buscar tecnicos" });
+  }
+};

@@ -35,6 +35,7 @@ exports.solicitudesPorDia = async (req, res) => {
 };
 
 // 2. 📋 Últimas 5 solicitudes
+// 2. 📋 Últimas 5 solicitudes
 exports.solicitudesRecientes = async (req, res) => {
   try {
     const solicitudes = await Solicitud.findAll({
@@ -43,9 +44,11 @@ exports.solicitudesRecientes = async (req, res) => {
     });
 
     const usuarios = await Usuario.findAll();
+
     const resultado = solicitudes.map((s) => {
       const usuario = usuarios.find((u) => u.id === s.id_usuario);
       return {
+        id: s.id, // ✅ Se agregó el ID de la solicitud
         codigo: `SL-${String(s.id).padStart(3, "0")}`,
         solicitud: s.descripcion,
         nombre: usuario

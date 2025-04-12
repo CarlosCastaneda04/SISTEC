@@ -37,7 +37,6 @@ function DashboardAdmin() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Cargar datos para la gráfica
     fetch("http://localhost:3000/api/admin/reportes/solicitudes-por-dia")
       .then((res) => res.json())
       .then((data) => {
@@ -55,22 +54,23 @@ function DashboardAdmin() {
         });
       });
 
-    // Cargar solicitudes recientes
     fetch("http://localhost:3000/api/admin/solicitudes/recientes")
       .then((res) => res.json())
       .then(setSolicitudes);
 
-    // Cargar resumen de estado de solicitudes
     fetch("http://localhost:3000/api/admin/dashboard-resumen")
       .then((res) => res.json())
       .then(setResumen);
   }, []);
 
+  const irAAsignarServicio = (idSolicitud) => {
+    navigate(`/asignar-servicio/${idSolicitud}`);
+  };
+
   return (
     <Container className="dashboard-admin mt-5">
       <h2 className="text-center mb-4">Resumen de Solicitudes</h2>
 
-      {/* KPIs */}
       {resumen && (
         <Row className="mb-4 text-center">
           <Col md="3">
@@ -108,12 +108,10 @@ function DashboardAdmin() {
         </Row>
       )}
 
-      {/* GRÁFICA */}
       <div className="chart-placeholder mb-5">
         {chartData && <Bar data={chartData} options={{ responsive: true }} />}
       </div>
 
-      {/* SERVICIOS TÉCNICOS */}
       <h4 className="mb-3">Servicios Técnicos</h4>
       <Row className="mb-5">
         {[
@@ -144,7 +142,6 @@ function DashboardAdmin() {
         ))}
       </Row>
 
-      {/* TABLA DE SOLICITUDES */}
       <h4 className="mb-3">Solicitudes Recientes</h4>
       <div className="table-responsive">
         <table className="table table-hover">
@@ -155,12 +152,13 @@ function DashboardAdmin() {
               <th>Nombre</th>
               <th>Estado</th>
               <th>Fecha</th>
+              <th>Acción</th>
             </tr>
           </thead>
           <tbody>
             {solicitudes.length === 0 ? (
               <tr>
-                <td colSpan="5">No hay solicitudes recientes.</td>
+                <td colSpan="6">No hay solicitudes recientes.</td>
               </tr>
             ) : (
               solicitudes.map((s, i) => (
@@ -170,6 +168,15 @@ function DashboardAdmin() {
                   <td>{s.nombre}</td>
                   <td>{s.estado}</td>
                   <td>{s.fecha}</td>
+                  <td>
+                    <Button
+                      color="success"
+                      size="sm"
+                      onClick={() => irAAsignarServicio(s.id)}
+                    >
+                      Asignar
+                    </Button>
+                  </td>
                 </tr>
               ))
             )}

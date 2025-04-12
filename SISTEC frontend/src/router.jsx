@@ -71,9 +71,10 @@ const router = createBrowserRouter([
         element: <TecnicosDisponibles />,
       },
       {
-        path: "/asignar-tecnicos",
+        path: "/asignar-servicio/:idSolicitud",
         element: <AsignarServicio />,
       },
+
       {
         path: "/asignarcion-confirmada",
         element: <AsignacionExitosa />,

@@ -103,3 +103,24 @@ exports.obtenerSolicitudesAsignadasATecnico = async (req, res) => {
     res.status(500).json({ mensaje: "Error al obtener solicitudes asignadas" });
   }
 };
+
+// Crear nueva asignación
+exports.crearAsignacion = async (req, res) => {
+  try {
+    const { id_solicitud, id_tecnico, fecha_asignacion, fecha_fin, notas } =
+      req.body;
+
+    const nuevaAsignacion = await db.Asignacion.create({
+      id_solicitud,
+      id_tecnico,
+      fecha_asignacion,
+      fecha_fin,
+      notas,
+    });
+
+    res.status(201).json(nuevaAsignacion);
+  } catch (error) {
+    console.error("Error creando asignación:", error);
+    res.status(500).json({ mensaje: "Error creando asignación" });
+  }
+};
