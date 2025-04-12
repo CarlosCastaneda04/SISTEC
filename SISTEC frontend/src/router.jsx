@@ -20,6 +20,8 @@ import DashboardAdmin from "./components/admin/DashboardAdmin";
 import DashboardReportesPage from "./pages/DashboardReportes";
 import RecomendacionesCompra from "./components/TomaDecisiones/RecomendacionesCompra";
 import EvaluacionTecnicos from "./components/TomaDecisiones/EvaluacionTecnicos";
+import RegistrarCompra from "./components/RegistrarCompra/RegistrarCompra";
+import HistorialCompras from "./components/HistorialCompras/HistorialCompras";
 
 const router = createBrowserRouter([
   {
@@ -105,6 +107,13 @@ const router = createBrowserRouter([
       {
         path: "/evaluacion-tecnicos",
         element: <EvaluacionTecnicos/>,
+      },
+        path: "/registrar-compra",
+        element: <RegistrarCompra />,
+      },
+      {
+        path: "/historial-compras",
+        element: <HistorialCompras />,
       }
     ],
   },
