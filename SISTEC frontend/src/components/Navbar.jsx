@@ -50,6 +50,7 @@ function Navbar() {
 
             <Link to="/registrar-compra">Compra</Link>
             <Link to="/recomendaciones-compra">Toma de decision</Link>
+            <Link to="/evaluacion-tecnicos">Evaluación Tecnica</Link>
             <button onClick={logout}>Cerrar Sesión</button>
           </>
         );

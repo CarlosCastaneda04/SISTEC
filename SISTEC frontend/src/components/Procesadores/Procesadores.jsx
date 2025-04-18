@@ -49,9 +49,6 @@ const Procesadores = () => {
     <div className="procesadores-container">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h4 className="fw-bold">PROCESADORES - LOTE #{idLote}</h4>
-        <Button color="primary" className="agregar-btn">
-          Agregar Procesador
-        </Button>
       </div>
 
       <div className="procesadores-box mb-4 p-4 shadow-sm rounded">
@@ -91,7 +88,6 @@ const Procesadores = () => {
               <th>ENTRADAS</th>
               <th>SALIDAS</th>
               <th>PRECIO</th>
-              <th>ACCIONES</th>
             </tr>
           </thead>
           <tbody>
@@ -108,11 +104,6 @@ const Procesadores = () => {
                   <td>{item.entradas}</td>
                   <td>{item.salidas}</td>
                   <td>{item.precio}</td>
-                  <td>
-                    <Button color="success" size="sm">
-                      EDITAR
-                    </Button>
-                  </td>
                 </tr>
               ))
             )}

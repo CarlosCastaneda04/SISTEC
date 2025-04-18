@@ -49,33 +49,6 @@ const EmpleadoTecnico = () => {
         </Row>
 
         <h3 className="mb-4">Categorías de las solicitudes</h3>
-        <Row>
-          {categorias.slice(0, 2).map((nombre, index) => (
-            <Col md="3" key={index} className="mb-3">
-              <Card className="categoria-card">
-                <CardBody className="text-center">
-                  <Button color="primary" block>
-                    {nombre}
-                  </Button>
-                </CardBody>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-
-        <Row>
-          {categorias.slice(2, 4).map((nombre, index) => (
-            <Col md="3" key={index + 2} className="mb-3">
-              <Card className="categoria-card">
-                <CardBody className="text-center">
-                  <Button color="primary" block>
-                    {nombre}
-                  </Button>
-                </CardBody>
-              </Card>
-            </Col>
-          ))}
-        </Row>
 
         <Row>
           <div>
